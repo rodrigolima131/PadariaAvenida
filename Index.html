@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Padaria Avenida</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	
+	<!--<script type="text/javascript" src="js/jquery-3.3.1.js"></script>-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+</head>
+	
+<body>
+	
+<div class="container-fluid">
+<div class="wrapper">
+   <header class="row">
+	<!-- <img src="img/logo.png">-->
+	 <div id="menu" class="col-md-12">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img src="img/testlogo.png" width="100" alt="">Padaria Avenida</a></a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto menusistema">
+		  <li class="nav-item active"><a class="nav-link active" href="#">Rodrigo Lima</a><span class="sr-only">(current)</span></li>
+		  <li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
+		</ul>	
+	  </div>
+	 </div> 
+	</nav>
+</div>
+   </header>
+   
+     <div class="row" id="linha_menu">
+		<!--   <div role="main">-->
+
+		<div class="col-md-12"></div>
+	   </div>
+   <!-- Conteudo principal-->
+
+	   <div id="container_index">
+	     <div class="row">
+		  <div class="col-md-8">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#caixa">Caixa</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#comandafinalizada">Comandas finalizadas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#estoque">Estoque</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#produto">Produtos</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#relatorio">Relatorios</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane container active" id="caixa">
+    <!--Caixa-->
+			<div id="caixa">
+					<div id="recebimento_caixa" >
+					<h5>Cartão de credito: R$ 150,00</h5>
+					<h5>Cartão de débito: R$ 250,00</h5>
+					<h5>Dinheiro: R$ 300,00</h5>
+					<h5>Sangria: R$ 200,00</h5>
+					</div>
+					
+					
+		    </div>
+  </div>
+  
+  
+  <div class="tab-pane container fade" id="comandafinalizada">comanda finalizada</div>
+  <div class="tab-pane container fade" id="estoque">estoque</div>
+  <div class="tab-pane container fade" id="produto">produto</div>
+  <div class="tab-pane container fade" id="relatorio">relatorios</div>
+</div>
+
+		  
+		  
+		     <!--Rodape-->
+			<footer id="rodape" class="row" >
+			<button type="button" class="btn btn-primary">Nova comanda</button>
+			<button type="button" class="btn btn-success" data-dismiss="modal">Fechar Comanda</button>
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Remover Comanda</button>
+			<p>12/10/2019 07:07</p>
+			</footer>
+		 </div>
+	     
+	<div id="atendimento" class="col-md-4" >
+		 <div class="row" id="titulo_comanda_atendimento">
+		 <h5>Comandas em atendimento</h5>
+		
+		 </div>
+		 
+		 <!--Consulta-->
+		 <div class="row" id="pesquisa_comanda_atendimento">
+			<form>
+	<input type="text" class="form-control" placeholder="Pesquisar">
+			</form>
+		 </div>
+		 
+		 
+		 <!--CARDS-->
+		 <div class="row my-custom-scrollbar scrollbar-warning" >
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 001</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 09:20</h6>
+					<p class="card-text">Total: R$ 20,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 002</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 09:15</h6>
+					<p class="card-text">Total: R$ 50,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 003</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 09:40</h6>
+					<p class="card-text">Total: R$ 30,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 004</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 10:00</h6>
+					<p class="card-text">Total: R$ 20,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 005</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 10:20</h6>
+					<p class="card-text">Total: R$ 40,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6">
+				<div class="card">
+				  <div class="card-body">
+					<h5 class="card-title">Comanda 006</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Inicio 11:20</h6>
+					<p class="card-text">Total: R$ 17,00</p>
+					<a href="#" class="card-link">Detalhes</a>
+				  </div>
+				</div>
+			</div>
+			
+			
+			
+		 </div>
+		 
+		 
+		 </div>
+	   </div>
+	   <!--Fim conteudo Principal-->
+</div>
+</div>
+	</body>
+	
+</html>	
