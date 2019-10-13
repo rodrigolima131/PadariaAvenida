@@ -13,7 +13,7 @@ class Database:
         if not self._db_exists():
             self._migrate()
             self._create_master_admin()
-            logging.info("Database was successful created!!")
+            logging.info("  Database was successful created!!")
 
     def create_connection(self):
         """ create a database connection to a SQLite database """
@@ -90,6 +90,7 @@ class Database:
 if __name__ == '__main__':
     try:
         db = Database("app.db").create_connection()
+        logging.info("  Adding data test...")
         user_values = [
             ('ADMIN', 'ADMIN', 'admin'),
             ('USER', 'USER', 'user')
@@ -112,5 +113,6 @@ if __name__ == '__main__':
 
         db.commit()
         db.close()
+        logging.info("  Done!")
     except Exception as err:
         logging.critical(err, type(err))
