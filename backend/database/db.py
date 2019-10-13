@@ -60,6 +60,16 @@ class Database:
              );
          ''')
 
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS Estoque
+             (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                produto_id INTEGER,
+                quantidade INTEGER,
+                FOREIGN KEY (produto_id) REFERENCES Produtos(ID)
+            );
+        ''')
+
         conn.commit()
         conn.close()
         logging.info("  Tables created...")
@@ -97,6 +107,8 @@ if __name__ == '__main__':
         db.executemany("""
             INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?)
         """, produtos_values)
+
+        db.execute("""INSERT INTO Estoque (produto_id, quantidade) VALUES (1, 100)""")
 
         db.commit()
         db.close()
