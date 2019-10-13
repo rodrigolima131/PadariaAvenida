@@ -107,6 +107,12 @@ class Database:
             CREATE INDEX index_data_comanda 
             ON Comandas(data_comanda);
         """)
+
+        conn.execute("""
+            CREATE INDEX index_cliente_id
+            ON Comandas(cliente_id);
+        """)
+
         conn.commit()
         conn.close()
         logging.info("  Indexes created!")
