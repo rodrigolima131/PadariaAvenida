@@ -1,8 +1,9 @@
-import sqlite3
-from sqlite3 import Error
+
 import os
 import logging
-
+import sqlite3
+from sqlite3 import Error
+from datetime import datetime, date
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
@@ -46,7 +47,7 @@ class Database:
                 ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 cpf TEXT NOT NULL UNIQUE,
-                telefone TEXT NOT NULL
+                telefone TEXT
              );
          ''')
 
@@ -69,6 +70,18 @@ class Database:
                 FOREIGN KEY (produto_id) REFERENCES Produtos(ID)
             );
         ''')
+
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS Comandas
+             (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                cliente_id INTEGER,
+                inicio TIMESTAMP NOT NULL,
+                fim TIMESTAMP,
+                data_comanda DATE NOT NULL,
+                FOREIGN KEY (cliente_id) REFERENCES Clientes(ID)
+             );
+         ''')
 
         conn.commit()
         conn.close()
@@ -99,8 +112,6 @@ if __name__ == '__main__':
             INSERT INTO Usuarios (username, password, role) VALUES (?, ?, ?)
         """, user_values)
 
-        db.execute("""INSERT INTO Clientes (nome, cpf, telefone) VALUES ('Nome', '123.456.789-00', '(11) 4444-0000')""")
-
         produtos_values = [
             ('Coca-Cola 2l', 10.50, 'Unidade'),
             ('Pão Francês', 9.40, 'Kg')
@@ -110,6 +121,12 @@ if __name__ == '__main__':
         """, produtos_values)
 
         db.execute("""INSERT INTO Estoque (produto_id, quantidade) VALUES (1, 100)""")
+
+        db.execute("""INSERT INTO Clientes (nome, cpf, telefone) VALUES ('Nome', '123.456.789-00', '(11) 4444-0000')""")
+        db.execute(
+            """INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)""",
+            (1, datetime.now(), date.today())
+        )
 
         db.commit()
         db.close()
