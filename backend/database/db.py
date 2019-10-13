@@ -4,13 +4,16 @@ import os
 import logging
 
 
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+
+
 class Database:
     def __init__(self, path="database/app.db"):
         self.path = path
         if not self._db_exists():
             self._migrate()
             self._create_master_admin()
-            logging.info("Database created!!")
+            logging.info("Database was successful created!!")
 
     def create_connection(self):
         """ create a database connection to a SQLite database """
@@ -49,6 +52,7 @@ class Database:
 
         conn.commit()
         conn.close()
+        logging.info("  Tables created...")
 
     def _create_master_admin(self):
         conn = self.create_connection()
@@ -58,8 +62,8 @@ class Database:
         """)
 
         conn.commit()
-
         conn.close()
+        logging.info("  Master admin created...")
 
 
 if __name__ == '__main__':
