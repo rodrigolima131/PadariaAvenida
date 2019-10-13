@@ -36,18 +36,30 @@ class Database:
              );
          ''')
 
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS Clientes
+             (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                cpf TEXT NOT NULL UNIQUE,
+                telefone TEXT NOT NULL
+             );
+         ''')
+
         conn.commit()
         conn.close()
 
 
 if __name__ == '__main__':
     db = Database("app.db").create_connection()
-    values = [
+    user_values = [
         ('ADMIN', 'ADMIN', 'admin'),
         ('USER', 'USER', 'user')
     ]
     db.executemany("""
         INSERT INTO Usuarios (username, password, role) VALUES (?, ?, ?)
-    """, values)
+    """, user_values)
+
+    db.execute("""INSERT INTO Clientes (nome, cpf, telefone) VALUES ('Nome', '123.456.789-00', '(11) 4444-0000')""")
     db.commit()
 
