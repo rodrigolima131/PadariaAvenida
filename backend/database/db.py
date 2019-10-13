@@ -101,5 +101,4 @@ if __name__ == '__main__':
         db.commit()
         db.close()
     except Exception as err:
-        print(err, type(err))
-
+        logging.critical(err, type(err))
