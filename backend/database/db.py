@@ -67,6 +67,7 @@ class Database:
     def _create_master_admin(self):
         conn = self.create_connection()
 
+        # TODO get values from environment or input from the user
         conn.execute("""
             INSERT INTO Usuarios (username, password, role) VALUES ('padoca', 'admin123', 'master')
         """)
