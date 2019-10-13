@@ -14,6 +14,7 @@ class Database:
         if not self._db_exists():
             self._migrate()
             self._create_master_admin()
+            self._create_indexes()
             logging.info("  Database was successful created!!")
 
     def create_connection(self):
@@ -98,6 +99,17 @@ class Database:
         conn.commit()
         conn.close()
         logging.info("  Master admin created...")
+
+    def _create_indexes(self):
+        conn = self.create_connection()
+
+        conn.execute("""
+            CREATE INDEX index_data_comanda 
+            ON Comandas(data_comanda);
+        """)
+        conn.commit()
+        conn.close()
+        logging.info("  Indexes created!")
 
 
 if __name__ == '__main__':
