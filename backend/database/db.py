@@ -50,6 +50,16 @@ class Database:
              );
          ''')
 
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS Produtos
+             (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                produto TEXT NOT NULL,
+                valor DOUBLE NOT NULL,
+                unidade TEXT NOT NULL
+             );
+         ''')
+
         conn.commit()
         conn.close()
         logging.info("  Tables created...")
@@ -78,6 +88,15 @@ if __name__ == '__main__':
         """, user_values)
 
         db.execute("""INSERT INTO Clientes (nome, cpf, telefone) VALUES ('Nome', '123.456.789-00', '(11) 4444-0000')""")
+
+        produtos_values = [
+            ('Coca-Cola 2l', 10.50, 'Unidade'),
+            ('Pão Francês', 9.40, 'Kg')
+        ]
+        db.executemany("""
+            INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?)
+        """, produtos_values)
+
         db.commit()
     except Exception as err:
         print(err, type(err))
