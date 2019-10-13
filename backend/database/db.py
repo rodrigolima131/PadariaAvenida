@@ -99,6 +99,7 @@ if __name__ == '__main__':
         """, produtos_values)
 
         db.commit()
+        db.close()
     except Exception as err:
         print(err, type(err))
 
