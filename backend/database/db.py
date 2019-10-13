@@ -27,9 +27,9 @@ class Database:
     def _migrate(self):
         conn = self.create_connection()
         conn.execute('''
-            CREATE TABLE IF NOT EXISTS User
+            CREATE TABLE IF NOT EXISTS Usuarios
              (
-                ID INT PRIMARY KEY NOT NULL,
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL,
                 role TEXT NOT NULL 
@@ -41,4 +41,13 @@ class Database:
 
 
 if __name__ == '__main__':
-    Database("app.db").create_connection()
+    db = Database("app.db").create_connection()
+    values = [
+        ('ADMIN', 'ADMIN', 'admin'),
+        ('USER', 'USER', 'user')
+    ]
+    db.executemany("""
+        INSERT INTO Usuarios (username, password, role) VALUES (?, ?, ?)
+    """, values)
+    db.commit()
+
