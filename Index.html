@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Padaria Avenida</title>
+		<!-- Font Awesome para  add icones-->
+		<link rel="stylesheet" href="fontawesome/css/all.css">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	
+	<!--<script type="text/javascript" src="js/jquery-3.3.1.js"></script>-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
+</head>
+	
+<body onLoad="DateTime();">
+	
+<div class="container-fluid">
+<div class="wrapper">
+   <header class="row">
+	<!-- <img src="img/logo.png">-->
+	 <div id="menu" class="col-md-12 col-sm-12">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+
+		<div class="container-fluid">
+			<!-- logo -->
+			<a class="navbar-brand" href="#"><a class="navbar-brand"style="font-style: oblique" href="#"><img id="logo" src="imgs/logo01.jpg" width="48" alt="">Padaria Avenida</a></a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+		
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	                        <!-- ml-auto ajustando nav para direita-->
+		<ul class="navbar-nav ml-auto menusistema">
+		  <li class="nav-item active"><a class="nav-link active" href="#" style="font-style: oblique">Funcionario xx</a><span class="sr-only">(current)</span></li>
+		  <li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
+		</ul>	
+	  </div>
+	 </div> 
+	</nav>
+</div>
+   </header>
+   
+     <div class="row" id="linha_menu">
+		<!--   <div role="main">-->
+		<div class="col-md-12"></div>
+	   </div>
+	   
+   <!-- Conteudo principal-->
+	   <div id="container_index">
+	     <div class="row">
+		  <div class="col-md-8 col-sm-12 col-xs-12">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#caixa">Caixa</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#comandafinalizada">Comandas finalizadas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#estoque">Estoque</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#produto">Produtos</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#relatorio">Relatorios</a>
+  </li>
+</ul>
+<!-- Espaco em branco  -->
+<p style="height: 200px;"> </p>
+ 
+ 
+
+<!-- Tab panes -->
+<div class="tab-content">
+		  <div class="row tab-pane container active" id="caixa">
+			<!--Caixa-->
+				
+					<div class="row" id="caixa_linha">
+						<div id="funcao_caixa" class="col-md-12 col-sm-12 col-xs-12">
+							<button type="button" class="btn btn-info">Suprimento</button>
+							<button type="button" class="btn btn-info" >Sangria</button>
+							<button type="button" class="btn btn-info">Fechar Caixa</button>
+						</div>
+					</div>
+					<div class="row">
+							<div id="recebimento_caixa" class="col-md-10 col-sm-10 col-xs-11" >
+							<h5>Cartão de credito: R$ 150,00</h5>
+							<h5>Cartão de débito: R$ 250,00</h5>
+							<h5>Dinheiro: R$ 300,00</h5>
+							<h5>Sangria: R$ 200,00</h5><br />
+							<h3>Total em Caixa: R$500,00<h3>
+							</div>
+						
+					</div>		
+					
+		  </div>
+		  <div class="tab-pane container fade" id="comandafinalizada">comanda finalizada</div>
+		  <div class="tab-pane container fade" id="estoque">estoque</div>
+		  <div class="tab-pane container fade" id="produto">produto</div>
+		  <div class="tab-pane container fade" id="relatorio">relatorios</div>
+</div>
+
+			<!--Nova Comanda-->
+			<div class="modal fade" id="ModalNovaComanda" role="dialog">
+					<div class="modal-dialog modal-lg">
+						  <!-- Conteudo do Modal-->
+						  <div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Nova Comanda</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							<div class="modal-body">
+							  <form action="#"  method="post" name="novaComanda" id="novaComanda">
+								
+									<div class="form-group row">
+										<label for="codigo" class="col-md-1 col-form-label">Código</label>
+										<div class="col-md-3">
+										<input type="text" class="form-control" name="codigo" id="codigo" placeholder="" required>
+										</div>
+									</div>
+								
+									<div class="form-group row">
+									<label for="cliente" class="col-md-1 col-form-label">Cliente</label>
+									<div class="col-md-11"><input type="text" class="form-control" name="cliente" id="cliente" placeholder="" required></div>
+									</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6">
+									<input type="text" class="form-control" name="pesquisarproduto" id="pesquisarproduto" placeholder="Pesquisar">
+									</div>
+									
+									<div class="form-group col-md-2">
+										<div class="form-check">
+										  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+										  <label class="form-check-label" for="gridRadios1">Código</label>
+										</div>
+									</div>		
+									<div class="form-group col-md-2">	
+										  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+										  <label class="form-check-label" for="gridRadios2">Descrição</label>
+									</div>
+									<div class="form-group col-md-2">
+										<button type="button" class="btn btn-success">Adicionar</button>
+									</div>
+								</div>
+				
+							</form>
+							
+							<div class="row scrollbar-comanda scrollbar-warning">
+								<table class="table table-sm table-striped">
+								  <thead>
+									<tr>
+									  <th scope="col">#</th>
+									  <th scope="col">Produto</th>
+									  <th scope="col">Quantidade</th>
+									  <th scope="col">Preço</th>
+									</tr>
+								  </thead>
+								  <tbody>
+									<tr>
+									  <td scope="row"><input  type="radio" name="gridRadios" id="gridRadios3" value="option3"></td>
+									  <td>Bolo</td>
+									  <td>1</td>
+									  <td>R$ 37,00</td>
+									</tr>
+									<tr>
+									  <th scope="row"><input  type="radio" name="gridRadios" id="gridRadios3" value="option3"></th>
+									  <td>Coca-Cola 2LT</td>
+									  <td>2</td>
+									  <td>R$ 20,00</td>
+									</tr>
+								  </tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Remover item</button>
+								</div>
+								<div class="col-md-4">
+								<h3>Total: R$ 57,90</h3>
+								</div>
+							</div>
+						  </div>
+					</div>
+		  </div>
+		</div>
+			
+		  
+		  
+		  
+		     <!--Rodape-->
+			<footer id="rodape" class="row" >
+			<div id="col-md-12 col-sm-12">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalNovaComanda">Nova comanda</button>
+			<button type="button" class="btn btn-success">Fechar Comanda</button>
+			<button type="button" class="btn btn-danger">Remover Comanda</button>
+			
+			</div>
+			</footer>
+			
+		 </div>
+		 
+		 
+		 
+	     
+		 <!--Comandas em atendimento-->
+				<div id="atendimento" class="col-md-4 col-sm-12 col-xs-12 border-dark">
+					 <div class="row" id="titulo_comanda_atendimento">
+					  <div class="row">     <!--Circulo com numero de comandas-->
+							Comandas em atendimento <span class="circle">6</span>
+						 
+						 </div>
+					 </div>
+					 
+					 <!--Consulta-->
+					 <div class="row" id="pesquisa_comanda_atendimento">
+						<div class="col-md-12">
+						
+						<!-- Busca Comanda -->
+          <form class="form-inline ">
+          <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Consulte aqui"
+						aria-label="Search">
+						           <!--adicionando icone via fontwesome-->
+          <a href=""> <i class="fas fa-search" aria-hidden="true"></i> </a>
+         </form>
+						
+						</div>
+					 </div>
+					 
+					 
+					 <!--CARDS-->
+					 <!--Uma div a mais para o scrollbar-->
+					 <div class=" row my-custom-scrollbar scrollbar-warning">
+
+
+						<div class="row ">
+							<div class="col-sm-6">
+								<div class="card border-primary ml-1">
+									<div class="card-body">
+									<h6 class="card-title">Comanda 001</h6>
+									<p class="card-subtitle mb-2 text-muted">Inicio 09:00</p>
+									<p class="card-text">Total: R$ 50,00</p>
+									<a href="#" class="card-link">+Detalhes</a>
+									</div>
+								</div>
+							</div>
+							 <!--Borda primary em todos cards -->
+							<div class="col-sm-6">
+								<div class="card border-primary ml-1">
+									<div class="card-body">
+									<h6 class="card-title">Comanda 002</h6>
+									<p class="card-subtitle mb-2 text-muted">Inicio 09:15</p>
+									<p class="card-text">Total: R$ 20,00</p>
+									<a href="#" class="card-link">+Detalhes</a>
+									</div>
+								</div>
+							</div>
+							
+	
+						</div>
+						
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="card border-primary ml-1">
+										<div class="card-body">
+										<h6 class="card-title">Comanda 003</h6>
+										<p class="card-subtitle mb-2 text-muted">Inicio 09:35</p>
+										<p class="card-text">Total: R$ 30,00</p>
+										<a href="#" class="card-link">+Detalhes</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-sm-6">
+									<div class="card border-primary ml-1">
+										<div class="card-body">
+										<h6 class="card-title">Comanda 004</h6>
+										<p class="card-subtitle mb-2 text-muted">Inicio 09:45</p>
+										<p class="card-text">Total: R$ 40,00</p>
+										<a href="#" class="card-link">+Detalhes</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="card border-primary ml-1">
+										<div class="card-body">
+										<h6 class="card-title">Comanda 005</h6>
+										<p class="card-subtitle mb-2 text-muted">Inicio 10:15</p>
+										<p class="card-text">Total: R$ 25,00</p>
+										<a href="#" class="card-link">+Detalhes</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-sm-6">
+									<div class="card border-primary ml-1">
+										<div class="card-body">
+										<h6 class="card-title">Comanda 006</h6>
+										<p class="card-subtitle mb-2 text-muted">Inicio 10:25</p>
+										<p class="card-text">Total: R$ 45,00</p>
+										<a href="#" class="card-link">+Detalhes</a>
+										</div>
+									</div>
+								</div>
+							 </div>
+							 </div>
+				 </div>
+							</div>
+					 </div>
+	   <!--Fim conteudo Principal-->
+</div>
+</div>
+	</body>
+	
+</html>	
