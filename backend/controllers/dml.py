@@ -48,3 +48,22 @@ class DML:
         except Exception as e:
             logging.critical(e, type(e))
             return {}
+
+    def insert_comanda(self, comanda: dict):
+        try:
+            verify = self.conn.execute(
+                f"""
+                SELECT * FROM Comandas 
+                WHERE cliente_id = {comanda["cliente_id"]} 
+                    AND fim IS NULL 
+                    AND data_comanda = '{str(comanda["data_comanda"])}';
+                """
+            )
+            if not verify.fetchone():
+                self.conn.execute(
+                    "INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)",
+                    (comanda["cliente_id"], comanda["inicio"], comanda["data_comanda"])
+                )
+                self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)

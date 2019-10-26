@@ -4,6 +4,7 @@
 from flask import Flask, request, jsonify
 from controllers.dml import *
 from database.schema import Cliente, validate_document
+from datetime import datetime, date
 
 
 app = Flask(__name__)
@@ -75,6 +76,32 @@ def find_client():
     return jsonify(json_)
 
 
+##############################################
+#                  Comandas                  #
+##############################################
+@app.route("/comanda/add", methods=["POST"])
+def comanda_client():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    comanda = {
+        "cliente_id": cliente_id,
+        "inicio": datetime.now(),
+        "data_comanda": date.today()
+    }
+    try:
+        dml.insert_comanda(comanda)
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+##############################################
+#                   HEALTH                   #
+##############################################
 @app.route("/health")
 def health():
     return "ok"
