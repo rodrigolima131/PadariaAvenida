@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, jsonify, abort
-from database.dml import *
+from flask import Flask, request, jsonify
+from controllers.dml import *
 from database.schema import Cliente, validate_document
 
 
