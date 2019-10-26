@@ -16,12 +16,26 @@ class DML:
             logging.critical(err, type(err))
 
     def insert_client(self, cliente: Cliente):
-        self.conn.execute(
-            "INSERT INTO Clientes (nome, cpf, telefone) VALUES (?, ?, ?)",
-            (cliente.nome, cliente.cpf, cliente.telefone)
-        )
-        self.conn.commit()
+        try:
+            self.conn.execute(
+                "INSERT INTO Clientes (nome, cpf, telefone) VALUES (?, ?, ?)",
+                (cliente.nome, cliente.cpf, cliente.telefone)
+            )
+            self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
 
     def delete_client(self, _id: int):
-        self.conn.execute("DELETE FROM Clientes WHERE ID = ?", str(_id))
-        self.conn.commit()
+        try:
+            self.conn.execute("DELETE FROM Clientes WHERE ID = ?", str(_id))
+            self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
+
+    def edit_client(self, set_query, where):
+        query = f"UPDATE Clientes SET {set_query} WHERE {where}"
+        try:
+            self.conn.execute(query)
+            self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
