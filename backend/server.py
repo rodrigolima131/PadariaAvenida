@@ -12,8 +12,17 @@ logger.setLevel(logging.INFO)
 app = Flask(__name__)
 
 
-@app.route("/model/add-candidate", methods=["POST"])
-def main():
+@app.route("/client/add", methods=["POST"])
+def client_add():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.insert_client(data["nome"], data["cpf"], data.get("telefone", ""))
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
     return "ok"
 
 
