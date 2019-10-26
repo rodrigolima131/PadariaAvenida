@@ -163,10 +163,17 @@ if __name__ == '__main__':
 
         db.execute("""INSERT INTO Estoque (produto_id, quantidade) VALUES (1, 100)""")
 
-        db.execute("""
+        clientes_values = [
+            ('João Foo Bar', '123.456.789-00', '(11) 4444-0000'),
+            ('Ana Foo Bar', '123.456.789-01', '(11) 4444-0013'),
+            ('Sidnei Foo Bar', '123.456.789-02', '(11) 4444-0025'),
+            ('Abdu Sala', '123.456.789-12', '(11) 4444-0011')
+        ]
+        db.executemany("""
             INSERT INTO Clientes (nome, cpf, telefone) 
-            VALUES ('João Foo Bar', '123.456.789-00', '(11) 4444-0000')
-        """)
+            VALUES (?, ?, ?)
+        """, clientes_values)
+
         db.execute(
             """INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)""",
             (1, datetime.now(), date.today())
