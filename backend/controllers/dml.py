@@ -55,6 +55,9 @@ class DML:
             logging.critical(e, type(e))
             return {}
 
+    ##############################################
+    #                  Comandas                  #
+    ##############################################
     def insert_comanda(self, comanda: dict):
         try:
             verify = self.conn.execute(
@@ -66,5 +69,15 @@ class DML:
                     (comanda["cliente_id"], comanda["inicio"], comanda["data_comanda"])
                 )
                 self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
+
+    def delete_comanda(self, comanda: dict):
+        try:
+            self.conn.execute(
+                "DELETE FROM Comandas WHERE ID = ? AND data_comanda = '?' AND fim IS NULL",
+                (comanda["cliente_id"], comanda["data_comanda"])
+            )
+            self.conn.commit()
         except Exception as err:
             logging.critical(type(err), err)
