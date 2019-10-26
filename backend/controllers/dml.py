@@ -8,6 +8,12 @@ logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 class DML:
     def __init__(self):
         self.conn = Database().create_connection()
+        self.query_comanda_exists = """
+        SELECT * FROM Comandas 
+        WHERE cliente_id = {} 
+            AND fim IS NULL 
+            AND data_comanda = '{}';
+        """
 
     def destroy_me(self):
         try:
@@ -52,12 +58,7 @@ class DML:
     def insert_comanda(self, comanda: dict):
         try:
             verify = self.conn.execute(
-                f"""
-                SELECT * FROM Comandas 
-                WHERE cliente_id = {comanda["cliente_id"]} 
-                    AND fim IS NULL 
-                    AND data_comanda = '{str(comanda["data_comanda"])}';
-                """
+                self.query_comanda_exists.format(comanda["cliente_id"], str(comanda["data_comanda"]))
             )
             if not verify.fetchone():
                 self.conn.execute(
