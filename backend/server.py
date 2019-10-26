@@ -23,7 +23,22 @@ def client_add():
     finally:
         dml.destroy_me()
 
-    return "ok"
+    return "200"
+
+
+@app.route("/client/del", methods=["POST"])
+def client_del():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.delete_client(data["id"])
+
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
+    return "200"
 
 
 @app.route("/health")

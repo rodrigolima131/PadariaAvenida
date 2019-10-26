@@ -20,3 +20,7 @@ class DML:
             (nome, cpf, telefone)
         )
         self.conn.commit()
+
+    def delete_client(self, _id: int):
+        self.conn.execute("DELETE FROM Clientes WHERE ID = ?", str(_id))
+        self.conn.commit()
