@@ -80,3 +80,16 @@ class DML:
             self.conn.commit()
         except Exception as err:
             logging.critical(type(err), err)
+
+    def find_active_comanda_by_client_id(self, cliente_id: int, data_comanda: str):
+        try:
+            execute = self.conn.execute(
+                "SELECT ID FROM Comandas WHERE cliente_id = {} AND fim IS NULL and data_comanda = '{}'".format(
+                    cliente_id, data_comanda
+                )
+            )
+            fetch = execute.fetchone()
+            return fetch
+        except Exception as err:
+            logging.critical(err, type(err))
+            return None

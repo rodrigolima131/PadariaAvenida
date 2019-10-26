@@ -116,6 +116,25 @@ def delete_comanda():
     return jsonify(ok=200)
 
 
+@app.route("/comanda/find_by_user_id", methods=["POST"])
+def find_user_id_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        _id = dml.find_active_comanda_by_client_id(
+            cliente_id=cliente_id,
+            data_comanda=str(date.today()),
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+        _id = None
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ID=_id[0] if _id else _id)
+
+
 ##############################################
 #                   HEALTH                   #
 ##############################################
