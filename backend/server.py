@@ -80,17 +80,34 @@ def find_client():
 #                  Comandas                  #
 ##############################################
 @app.route("/comanda/add", methods=["POST"])
-def comanda_client():
+def add_comanda():
     cliente_id = request.get_json(silent=True)["cliente_id"]
     dml = DML()
 
-    comanda = {
-        "cliente_id": cliente_id,
-        "inicio": datetime.now(),
-        "data_comanda": date.today()
-    }
     try:
-        dml.insert_comanda(comanda)
+        dml.insert_comanda(
+            cliente_id=cliente_id,
+            inicio=str(datetime.now()),
+            data_comanda=str(date.today()),
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/comanda/delete", methods=["POST"])
+def delete_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        dml.delete_comanda(
+            cliente_id=cliente_id,
+            data_comanda=str(date.today()),
+        )
     except Exception as err:
         logging.critical(err, type(err))
     finally:

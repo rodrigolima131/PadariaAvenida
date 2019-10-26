@@ -58,25 +58,24 @@ class DML:
     ##############################################
     #                  Comandas                  #
     ##############################################
-    def insert_comanda(self, comanda: dict):
+    def insert_comanda(self, cliente_id: str, inicio: str, data_comanda: str):
         try:
             verify = self.conn.execute(
-                self.query_comanda_exists.format(comanda["cliente_id"], str(comanda["data_comanda"]))
+                self.query_comanda_exists.format(cliente_id, data_comanda)
             )
             if not verify.fetchone():
                 self.conn.execute(
                     "INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)",
-                    (comanda["cliente_id"], comanda["inicio"], comanda["data_comanda"])
+                    (cliente_id, inicio, data_comanda)
                 )
                 self.conn.commit()
         except Exception as err:
             logging.critical(type(err), err)
 
-    def delete_comanda(self, comanda: dict):
+    def delete_comanda(self, cliente_id: int, data_comanda: str):
         try:
             self.conn.execute(
-                "DELETE FROM Comandas WHERE ID = ? AND data_comanda = '?' AND fim IS NULL",
-                (comanda["cliente_id"], comanda["data_comanda"])
+                f"DELETE FROM Comandas WHERE cliente_id = {str(cliente_id)} AND data_comanda = '{data_comanda}' AND fim IS NULL"
             )
             self.conn.commit()
         except Exception as err:
