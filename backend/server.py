@@ -13,7 +13,7 @@ app = Flask(__name__)
 #                  Clientes                  #
 ##############################################
 @app.route("/client/add", methods=["POST"])
-def client_add():
+def add_client():
     data = request.get_json(silent=True)
     dml = DML()
 
@@ -30,7 +30,7 @@ def client_add():
 
 
 @app.route("/client/del", methods=["POST"])
-def client_del():
+def del_client():
     data = request.get_json(silent=True)
     dml = DML()
     try:
@@ -45,7 +45,7 @@ def client_del():
 
 
 @app.route("/client/edit", methods=["POST"])
-def client_edit():
+def edit_client():
     data = request.get_json(silent=True)
     dml = DML()
 
@@ -60,7 +60,7 @@ def client_edit():
 
 
 @app.route("/client/find", methods=["POST"])
-def find_edit():
+def find_client():
     data = request.get_json(silent=True)
     dml = DML()
 
