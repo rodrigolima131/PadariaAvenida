@@ -116,7 +116,21 @@
 		  <div class="tab-pane container fade" id="relatorio">relatorios</div>
 </div>
 
-			<!--Nova Comanda-->
+			
+			
+		  
+		  
+		  
+		     <!--Rodape-->
+			<footer id="rodape" class="row" >
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalNovaComanda">Nova comanda</button>
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalFechaComanda" >Fechar Comanda</button>
+			<button type="button" class="btn btn-danger">Remover Comanda</button>
+			</footer>
+			
+		 </div>
+		 
+		 <!--Nova Comanda-->
 			<div class="modal fade" id="ModalNovaComanda" role="dialog">
 					<div class="modal-dialog modal-lg">
 						  <!-- Conteudo do Modal-->
@@ -201,19 +215,124 @@
 					</div>
 		  </div>
 		</div>
-			
-		  
-		  
-		  
-		     <!--Rodape-->
-			<footer id="rodape" class="row" >
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalNovaComanda">Nova comanda</button>
-			<button type="button" class="btn btn-success">Fechar Comanda</button>
-			<button type="button" class="btn btn-danger">Remover Comanda</button>
-	  
-			</footer>
-			
-		 </div>
+		
+		<!--Fecha Comanda-->
+			<div class="modal fade" id="ModalFechaComanda" role="dialog">
+					<div class="modal-dialog modal-lg">
+						  <!-- Conteudo do Modal-->
+						  <div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Fechar Comanda</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							<div class="modal-body">
+							  <form action="#"  method="post" name="fechaComanda" id="fechaComanda">
+								
+									<div class="form-group row">
+										<label for="codigo" class="col-md-1 col-form-label">Código</label>
+										<div class="col-md-3">
+										<input type="text" class="form-control" name="codigo" id="codigo" placeholder="" required>
+										</div>
+									</div>
+								
+									<div class="form-group row">
+									<label for="cliente" class="col-md-1 col-form-label">Cliente</label>
+									<div class="col-md-11"><input type="text" class="form-control" name="cliente" id="cliente" placeholder="" disabled required></div>
+									</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6">
+									<input type="text" class="form-control" name="pesquisarproduto" id="pesquisarproduto" placeholder="Pesquisar">
+									</div>
+									
+									<div class="form-group col-md-2">
+										<div class="form-check">
+										  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+										  <label class="form-check-label" for="gridRadios1">Código</label>
+										</div>
+									</div>		
+									<div class="form-group col-md-2">	
+										  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+										  <label class="form-check-label" for="gridRadios2">Descrição</label>
+									</div>
+									<div class="form-group col-md-2">
+										<button type="button" class="btn btn-success">Adicionar</button>
+									</div>
+								</div>
+				
+							</form>
+							
+							<div class="row scrollbar-comanda scrollbar-warning">
+								<table class="table table-sm table-striped">
+								  <thead>
+									<tr>
+									  <th scope="col">#</th>
+									  <th scope="col">Produto</th>
+									  <th scope="col">Quantidade</th>
+									  <th scope="col">Preço</th>
+									</tr>
+								  </thead>
+								  <tbody>
+									<tr>
+									  <td scope="row"><input  type="radio" name="gridRadios" id="gridRadios3" value="option3"></td>
+									  <td>Bolo</td>
+									  <td>1</td>
+									  <td>R$ 37,00</td>
+									</tr>
+									<tr>
+									  <th scope="row"><input  type="radio" name="gridRadios" id="gridRadios3" value="option3"></th>
+									  <td>Coca-Cola 2LT</td>
+									  <td>2</td>
+									  <td>R$ 20,00</td>
+									</tr>
+								  </tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Remover item</button>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModalAplicaDesconto">Desconto</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+								</div>
+								<div class="col-md-4">
+								<h3>Total: R$ 57,90</h3>
+								</div>
+							</div>
+						  </div>
+					</div>
+		  </div>
+		</div>
+		
+		
+		
+		
+		
+		<!--aplica desconto Comanda-->
+			<div class="modal fade" id="ModalAplicaDesconto" role="dialog">
+					<div class="modal-dialog modal-sm">
+						  <!-- Conteudo do Modal-->
+						  <div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Aplicar desconto</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							
+							<div class="modal-body">
+							  <form action="#"  method="post" name="aplicaDesconto" id="aplicaDesconto">
+								
+									<div class="form-group row">
+										<label for="codigo" class="col-md-2 col-form-label">Valor</label>
+										<div class="col-md-6">
+										<input type="text" class="form-control" name="valor" id="valor" placeholder="" required>
+										</div>
+										<div class="col-md-4"><button type="button" class="btn btn-success">Aplicar</button></div>
+									</div>			
+							</form>
+						  </div>
+					</div>
+		  </div>
+		</div>
 		 
 		 
 		 
