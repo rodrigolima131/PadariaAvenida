@@ -39,3 +39,12 @@ class DML:
             self.conn.commit()
         except Exception as err:
             logging.critical(type(err), err)
+
+    def find_client(self, where):
+        try:
+            execute = self.conn.execute(f"SELECT * FROM Clientes WHERE {where}")
+            fetch = execute.fetchone()
+            return {k[0]: v for k, v in list(zip(execute.description, fetch))}
+        except Exception as e:
+            logging.critical(e, type(e))
+            return {}

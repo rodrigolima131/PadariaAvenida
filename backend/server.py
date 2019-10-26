@@ -23,7 +23,7 @@ def client_add():
     finally:
         dml.destroy_me()
 
-    return "200"
+    return jsonify(ok=200)
 
 
 @app.route("/client/del", methods=["POST"])
@@ -38,7 +38,7 @@ def client_del():
     finally:
         dml.destroy_me()
 
-    return "200"
+    return jsonify(ok=200)
 
 
 @app.route("/client/edit", methods=["POST"])
@@ -53,7 +53,23 @@ def client_edit():
     finally:
         dml.destroy_me()
 
-    return "200"
+    return jsonify(ok=200)
+
+
+@app.route("/client/find", methods=["POST"])
+def find_edit():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        json_ = dml.find_client(data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        json_ = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(json_)
 
 
 @app.route("/health")
