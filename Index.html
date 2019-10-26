@@ -23,7 +23,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
+<link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text&display=swap" rel="stylesheet">
+
 </head>
 	
 <body onLoad="DateTime();">
@@ -37,7 +38,7 @@
 
 		<div class="container-fluid">
 			<!-- logo -->
-			<a class="navbar-brand" href="#"><a class="navbar-brand"style="font-style: oblique" href="#"><img id="logo" src="imgs/logo01.jpg" width="48" alt="">Padaria Avenida</a></a>
+			<a class="navbar-brand" href="#"><a class="navbar-brand" id="logo_titulo" href="#">Padaria Avenida</a></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			  </button>
@@ -45,7 +46,7 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	                        <!-- ml-auto ajustando nav para direita-->
 		<ul class="navbar-nav ml-auto menusistema">
-		  <li class="nav-item active"><a class="nav-link active" href="#" style="font-style: oblique">Funcionario xx</a><span class="sr-only">(current)</span></li>
+		  <li class="nav-item active"><a class="nav-link active" href="#" >Funcionario xx</a><span class="sr-only">(current)</span></li>
 		  <li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
 		</ul>	
 	  </div>
@@ -81,8 +82,7 @@
     <a class="nav-link" data-toggle="tab" href="#relatorio">Relatorios</a>
   </li>
 </ul>
-<!-- Espaco em branco  -->
-<p style="height: 200px;"> </p>
+
  
  
 
@@ -207,12 +207,10 @@
 		  
 		     <!--Rodape-->
 			<footer id="rodape" class="row" >
-			<div id="col-md-12 col-sm-12">
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalNovaComanda">Nova comanda</button>
 			<button type="button" class="btn btn-success">Fechar Comanda</button>
 			<button type="button" class="btn btn-danger">Remover Comanda</button>
-			
-			</div>
+	  
 			</footer>
 			
 		 </div>
@@ -221,12 +219,13 @@
 		 
 	     
 		 <!--Comandas em atendimento-->
-				<div id="atendimento" class="col-md-4 col-sm-12 col-xs-12 border-dark">
+				<div id="atendimento" class="col-md-4 col-sm-12 col-xs-12">
 					 <div class="row" id="titulo_comanda_atendimento">
-					  <div class="row">     <!--Circulo com numero de comandas-->
-							Comandas em atendimento <span class="circle">6</span>
-						 
-						 </div>
+							
+							<h4>Comandas em atendimento</h4> 
+							<!--Circulo com numero de comandas-->
+							<span class="circle">16</span>
+							
 					 </div>
 					 
 					 <!--Consulta-->
@@ -234,11 +233,10 @@
 						<div class="col-md-12">
 						
 						<!-- Busca Comanda -->
-          <form class="form-inline ">
-          <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Consulte aqui"
-						aria-label="Search">
-						           <!--adicionando icone via fontwesome-->
-          <a href=""> <i class="fas fa-search" aria-hidden="true"></i> </a>
+          <form class="form row">
+          <input class="form-control form-control col-md-11" type="text" placeholder="pesquisar" aria-label="Search">
+				     <!--adicionando icone via fontwesome-->
+          <a href="" class="col-md-1"> <i class="fas fa-search" aria-hidden="true"></i> </a>
          </form>
 						
 						</div>
