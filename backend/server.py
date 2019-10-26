@@ -9,6 +9,9 @@ from database.schema import Cliente, validate_document
 app = Flask(__name__)
 
 
+##############################################
+#                  Clientes                  #
+##############################################
 @app.route("/client/add", methods=["POST"])
 def client_add():
     data = request.get_json(silent=True)
