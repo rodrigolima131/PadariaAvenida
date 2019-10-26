@@ -3,6 +3,7 @@
 
 from flask import Flask, request, jsonify, abort
 from database.dml import *
+from database.schema import Cliente, validate_document
 
 
 app = Flask(__name__)
@@ -12,12 +13,11 @@ app = Flask(__name__)
 def client_add():
     data = request.get_json(silent=True)
     dml = DML()
+
+    cliente = validate_document(data, Cliente)
+
     try:
-        dml.insert_client(
-            data["nome"],
-            data["cpf"],
-            data.get("telefone", "")
-        )
+        dml.insert_client(cliente)
     except Exception as err:
         logging.critical(err, type(err))
     finally:

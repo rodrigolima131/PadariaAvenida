@@ -1,4 +1,5 @@
 from backend.database.db import Database
+from backend.database.schema import Cliente
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -14,10 +15,10 @@ class DML:
         except Exception as err:
             logging.critical(err, type(err))
 
-    def insert_client(self, nome: str, cpf: str, telefone: str = ""):
+    def insert_client(self, cliente: Cliente):
         self.conn.execute(
             "INSERT INTO Clientes (nome, cpf, telefone) VALUES (?, ?, ?)",
-            (nome, cpf, telefone)
+            (cliente.nome, cliente.cpf, cliente.telefone)
         )
         self.conn.commit()
 
