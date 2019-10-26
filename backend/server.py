@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request, jsonify, abort
-import logging
 from database.dml import *
 
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
@@ -17,7 +13,11 @@ def client_add():
     data = request.get_json(silent=True)
     dml = DML()
     try:
-        dml.insert_client(data["nome"], data["cpf"], data.get("telefone", ""))
+        dml.insert_client(
+            data["nome"],
+            data["cpf"],
+            data.get("telefone", "")
+        )
     except Exception as err:
         logging.critical(err, type(err))
     finally:
