@@ -79,7 +79,7 @@ def find_client():
 ##############################################
 #                  Comandas                  #
 ##############################################
-@app.route("/comanda/add", methods=["POST"])
+@app.route("/comanda/start", methods=["POST"])
 def add_comanda():
     cliente_id = request.get_json(silent=True)["cliente_id"]
     dml = DML()
@@ -134,6 +134,38 @@ def find_user_id_comanda():
 
     return jsonify(ID=_id[0] if _id else _id)
 
+
+@app.route("/comanda/edit", methods=["POST"])
+def edit_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_comanda(data["query"], data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/comanda/finish", methods=["POST"])
+def finish_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        dml.finish_comanda(
+            cliente_id=cliente_id,
+            fim=str(datetime.now())
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
 
 ##############################################
 #                   HEALTH                   #

@@ -93,3 +93,19 @@ class DML:
         except Exception as err:
             logging.critical(err, type(err))
             return None
+
+    def edit_comanda(self, set_query, where):
+        query = f"UPDATE Comandas SET {set_query} WHERE {where}"
+        try:
+            self.conn.execute(query)
+            self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
+
+    def finish_comanda(self, cliente_id: int, fim: str):
+        query = f"UPDATE Comandas SET fim = '{fim}' WHERE cliente_id = {cliente_id} and fim IS NULL"
+        try:
+            self.conn.execute(query)
+            self.conn.commit()
+        except Exception as err:
+            logging.critical(type(err), err)
