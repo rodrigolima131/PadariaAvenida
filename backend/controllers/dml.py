@@ -21,65 +21,48 @@ class DML:
         except Exception as err:
             logging.critical(err, type(err))
 
+    ##############################################
+    #                  Clientes                  #
+    ##############################################
     def insert_client(self, cliente: Cliente):
-        try:
-            self.conn.execute(
-                "INSERT INTO Clientes (nome, cpf, telefone) VALUES (?, ?, ?)",
-                (cliente.nome, cliente.cpf, cliente.telefone)
-            )
-            self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+        self.conn.execute(
+            "INSERT INTO Clientes (nome, cpf, telefone) VALUES (?, ?, ?)",
+            (cliente.nome, cliente.cpf, cliente.telefone)
+        )
+        self.conn.commit()
 
     def delete_client(self, _id: int):
-        try:
-            self.conn.execute("DELETE FROM Clientes WHERE ID = ?", str(_id))
-            self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+        self.conn.execute("DELETE FROM Clientes WHERE ID = ?", str(_id))
+        self.conn.commit()
 
     def edit_client(self, set_query, where):
-        query = f"UPDATE Clientes SET {set_query} WHERE {where}"
-        try:
-            self.conn.execute(query)
-            self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+        self.conn.execute(f"UPDATE Clientes SET {set_query} WHERE {where}")
+        self.conn.commit()
 
     def find_client(self, where):
-        try:
-            execute = self.conn.execute(f"SELECT * FROM Clientes WHERE {where}")
-            fetch = execute.fetchone()
-            return {k[0]: v for k, v in list(zip(execute.description, fetch))}
-        except Exception as e:
-            logging.critical(e, type(e))
-            return {}
+        execute = self.conn.execute(f"SELECT * FROM Clientes WHERE {where}")
+        fetch = execute.fetchone()
+        return {k[0]: v for k, v in list(zip(execute.description, fetch))}
 
     ##############################################
     #                  Comandas                  #
     ##############################################
     def insert_comanda(self, cliente_id: str, inicio: str, data_comanda: str):
-        try:
-            verify = self.conn.execute(
-                self.query_comanda_exists.format(cliente_id, data_comanda)
-            )
-            if not verify.fetchone():
-                self.conn.execute(
-                    "INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)",
-                    (cliente_id, inicio, data_comanda)
-                )
-                self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
-
-    def delete_comanda(self, cliente_id: int, data_comanda: str):
-        try:
+        verify = self.conn.execute(
+            self.query_comanda_exists.format(cliente_id, data_comanda)
+        )
+        if not verify.fetchone():
             self.conn.execute(
-                f"DELETE FROM Comandas WHERE cliente_id = {str(cliente_id)} AND data_comanda = '{data_comanda}' AND fim IS NULL"
+                "INSERT INTO Comandas (cliente_id, inicio, data_comanda) VALUES (?, ?, ?)",
+                (cliente_id, inicio, data_comanda)
             )
             self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+
+    def delete_comanda(self, cliente_id: int, data_comanda: str):
+        self.conn.execute(
+            f"DELETE FROM Comandas WHERE cliente_id = {str(cliente_id)} AND data_comanda = '{data_comanda}' AND fim IS NULL"
+        )
+        self.conn.commit()
 
     def find_active_comanda_by_client_id(self, cliente_id: int, data_comanda: str):
         try:
@@ -119,16 +102,9 @@ class DML:
 
     def edit_comanda(self, set_query, where):
         query = f"UPDATE Comandas SET {set_query} WHERE {where}"
-        try:
-            self.conn.execute(query)
-            self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+        self.conn.execute(query)
+        self.conn.commit()
 
     def finish_comanda(self, cliente_id: int, fim: str):
-        query = f"UPDATE Comandas SET fim = '{fim}' WHERE cliente_id = {cliente_id} and fim IS NULL"
-        try:
-            self.conn.execute(query)
-            self.conn.commit()
-        except Exception as err:
-            logging.critical(type(err), err)
+        self.conn.execute(f"UPDATE Comandas SET fim = '{fim}' WHERE cliente_id = {cliente_id} and fim IS NULL")
+        self.conn.commit()

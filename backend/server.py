@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from controllers.dml import *
 from database.schema import Cliente, validate_document
 from datetime import datetime, date
+
+import sqlite3
 
 
 app = Flask(__name__)
@@ -22,13 +24,20 @@ def add_client():
 
     try:
         dml.insert_client(cliente)
+    except sqlite3.IntegrityError as e:
+        logging.critical(f"Cliente com cpf {cliente.cpf} já adicionado.")
+        return jsonify(
+            error=404,
+            message="Cliente já adicionado.",
+        ), 404
+
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        abort(500, description=str(err))
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True), 201
 
 
 @app.route("/client/del", methods=["POST"])
@@ -39,11 +48,11 @@ def del_client():
         dml.delete_client(data["id"])
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True)
 
 
 @app.route("/client/edit", methods=["POST"])
@@ -55,11 +64,11 @@ def edit_client():
         dml.edit_client(data["query"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True)
 
 
 @app.route("/client/find", methods=["POST"])
@@ -94,11 +103,11 @@ def add_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True), 201
 
 
 @app.route("/comanda/delete", methods=["POST"])
@@ -113,11 +122,11 @@ def delete_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True)
 
 
 @app.route("/comanda/find_by_user_id", methods=["POST"])
@@ -163,7 +172,7 @@ def edit_comanda():
         dml.edit_comanda(data["query"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
@@ -182,11 +191,11 @@ def finish_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
-        return jsonify(error=500)
+        return jsonify(error=400), 400
     finally:
         dml.destroy_me()
 
-    return jsonify(ok=200)
+    return jsonify(ok=True)
 
 ##############################################
 #                   HEALTH                   #
