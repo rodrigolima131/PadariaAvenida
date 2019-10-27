@@ -120,3 +120,7 @@ class DML:
                 (produto_values.produto, produto_values.valor, produto_values.unidade)
             )
             self.conn.commit()
+
+    def delete_produto(self, produto_id: int):
+        self.conn.execute(f"DELETE FROM Produtos WHERE ID = {produto_id};")
+        self.conn.commit()

@@ -220,6 +220,22 @@ def add_produto():
 
     return jsonify(ok=True), 201
 
+
+@app.route("/produto/del", methods=["POST"])
+def delete_produto():
+    produto_id = request.get_json(silent=True)["produto_id"]
+    dml = DML()
+
+    try:
+        dml.delete_produto(produto_id=produto_id)
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=True)
+
 ##############################################
 #                   HEALTH                   #
 ##############################################
