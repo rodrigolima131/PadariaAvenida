@@ -4,6 +4,7 @@
 from flask import Flask, request, jsonify
 from controllers.dml import *
 from database.schema import Cliente, validate_document
+from datetime import datetime, date
 
 
 app = Flask(__name__)
@@ -23,6 +24,7 @@ def add_client():
         dml.insert_client(cliente)
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -35,9 +37,9 @@ def del_client():
     dml = DML()
     try:
         dml.delete_client(data["id"])
-
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -53,6 +55,7 @@ def edit_client():
         dml.edit_client(data["query"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -75,6 +78,104 @@ def find_client():
     return jsonify(json_)
 
 
+##############################################
+#                  Comandas                  #
+##############################################
+@app.route("/comanda/start", methods=["POST"])
+def add_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        dml.insert_comanda(
+            cliente_id=cliente_id,
+            inicio=str(datetime.now()),
+            data_comanda=str(date.today()),
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=500)
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/comanda/delete", methods=["POST"])
+def delete_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        dml.delete_comanda(
+            cliente_id=cliente_id,
+            data_comanda=str(date.today()),
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=500)
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/comanda/find_by_user_id", methods=["POST"])
+def find_user_id_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        _id = dml.find_active_comanda_by_client_id(
+            cliente_id=cliente_id,
+            data_comanda=str(date.today()),
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+        _id = None
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ID=_id[0] if _id else _id)
+
+
+@app.route("/comanda/edit", methods=["POST"])
+def edit_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_comanda(data["query"], data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=500)
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/comanda/finish", methods=["POST"])
+def finish_comanda():
+    cliente_id = request.get_json(silent=True)["cliente_id"]
+    dml = DML()
+
+    try:
+        dml.finish_comanda(
+            cliente_id=cliente_id,
+            fim=str(datetime.now())
+        )
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=500)
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+##############################################
+#                   HEALTH                   #
+##############################################
 @app.route("/health")
 def health():
     return "ok"
