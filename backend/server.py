@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, abort
 from controllers.dml import *
 from database.schema import Cliente, Produto, validate_document
 from datetime import datetime, date
+from schematics.exceptions import DataError
 
 import sqlite3
 
@@ -208,6 +209,9 @@ def add_produto():
     try:
         produto_values = validate_document(values, Produto)
         dml.insert_produto(produto_values)
+    except DataError as e:
+        logging.critical("Argumentos recebidos invalidos.")
+        abort(406, description="Argumentos Passados inválidos.")
     except Exception as err:
         logging.critical(err, type(err))
         return jsonify(error=400), 400
