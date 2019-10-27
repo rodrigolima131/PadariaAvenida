@@ -24,6 +24,7 @@ def add_client():
         dml.insert_client(cliente)
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -36,9 +37,9 @@ def del_client():
     dml = DML()
     try:
         dml.delete_client(data["id"])
-
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -54,6 +55,7 @@ def edit_client():
         dml.edit_client(data["query"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -92,6 +94,7 @@ def add_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -110,6 +113,7 @@ def delete_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -144,6 +148,7 @@ def edit_comanda():
         dml.edit_comanda(data["query"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
@@ -162,6 +167,7 @@ def finish_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
+        return jsonify(error=500)
     finally:
         dml.destroy_me()
 
