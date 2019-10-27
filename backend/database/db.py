@@ -56,7 +56,7 @@ class Database:
             CREATE TABLE IF NOT EXISTS Produtos
              (
                 ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                produto TEXT NOT NULL,
+                produto TEXT NOT NULL UNIQUE,
                 valor DOUBLE NOT NULL,
                 unidade TEXT NOT NULL
              );

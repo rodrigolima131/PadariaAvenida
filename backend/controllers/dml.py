@@ -1,5 +1,5 @@
 from backend.database.db import Database
-from backend.database.schema import Cliente
+from backend.database.schema import Cliente, Produto
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -108,3 +108,15 @@ class DML:
     def finish_comanda(self, cliente_id: int, fim: str):
         self.conn.execute(f"UPDATE Comandas SET fim = '{fim}' WHERE cliente_id = {cliente_id} and fim IS NULL")
         self.conn.commit()
+
+    ##############################################
+    #                 PRODUTOS                   #
+    ##############################################
+    def insert_produto(self, produto_values: Produto):
+        verify = self.conn.execute(f"SELECT * FROM Produtos WHERE produto = '{produto_values.produto}'; ")
+        if not verify.fetchone():
+            self.conn.execute(
+                "INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?);",
+                (produto_values.produto, produto_values.valor, produto_values.unidade)
+            )
+            self.conn.commit()

@@ -3,7 +3,7 @@
 
 from flask import Flask, request, jsonify, abort
 from controllers.dml import *
-from database.schema import Cliente, validate_document
+from database.schema import Cliente, Produto, validate_document
 from datetime import datetime, date
 
 import sqlite3
@@ -196,6 +196,25 @@ def finish_comanda():
         dml.destroy_me()
 
     return jsonify(ok=True)
+
+##############################################
+#                 PRODUTOS                   #
+##############################################
+@app.route("/produto/add", methods=["POST"])
+def add_produto():
+    values = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        produto_values = validate_document(values, Produto)
+        dml.insert_produto(produto_values)
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=True), 201
 
 ##############################################
 #                   HEALTH                   #
