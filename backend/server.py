@@ -139,6 +139,21 @@ def find_user_id_comanda():
     return jsonify(ID=_id[0] if _id else _id)
 
 
+@app.route("/comandas/active")
+def active_comandas():
+    dml = DML()
+
+    try:
+        comandas = dml.find_active_comandas()
+    except Exception as err:
+        logging.critical(err, type(err))
+        comandas = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(comandas)
+
+
 @app.route("/comanda/edit", methods=["POST"])
 def edit_comanda():
     data = request.get_json(silent=True)

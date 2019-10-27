@@ -94,6 +94,29 @@ class DML:
             logging.critical(err, type(err))
             return None
 
+    def find_active_comandas(self):
+        try:
+            execute = self.conn.execute("""
+                SELECT c.ID, c.cliente_id, cl.nome, c.inicio, c.fim, c.data_comanda 
+                FROM Comandas c 
+                JOIN Clientes cl ON c.cliente_id = cl.ID
+                WHERE fim IS NULL 
+                ORDER BY inicio ASC;
+            """)
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return {}
+
     def edit_comanda(self, set_query, where):
         query = f"UPDATE Comandas SET {set_query} WHERE {where}"
         try:
