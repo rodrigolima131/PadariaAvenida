@@ -16,7 +16,7 @@ app = Flask(__name__)
 ##############################################
 #                  Clientes                  #
 ##############################################
-@app.route("/client/add", methods=["POST"])
+@app.route("/cliente/add", methods=["POST"])
 def add_client():
     data = request.get_json(silent=True)
     dml = DML()
@@ -41,7 +41,7 @@ def add_client():
     return jsonify(ok=True), 201
 
 
-@app.route("/client/del", methods=["POST"])
+@app.route("/cliente/del", methods=["POST"])
 def del_client():
     data = request.get_json(silent=True)
     dml = DML()
@@ -56,7 +56,7 @@ def del_client():
     return jsonify(ok=True)
 
 
-@app.route("/client/edit", methods=["POST"])
+@app.route("/cliente/edit", methods=["POST"])
 def edit_client():
     data = request.get_json(silent=True)
     dml = DML()
@@ -72,7 +72,7 @@ def edit_client():
     return jsonify(ok=True)
 
 
-@app.route("/client/find", methods=["POST"])
+@app.route("/cliente/find", methods=["POST"])
 def find_client():
     data = request.get_json(silent=True)
     dml = DML()
@@ -82,6 +82,21 @@ def find_client():
     except Exception as err:
         logging.critical(err, type(err))
         json_ = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(json_)
+
+
+@app.route("/cliente/all")
+def find_all_client():
+    dml = DML()
+
+    try:
+        json_ = dml.find_all_clientes()
+    except Exception as err:
+        logging.critical(err, type(err))
+        json_ = []
     finally:
         dml.destroy_me()
 
@@ -157,7 +172,7 @@ def active_comandas():
         comandas = dml.find_active_comandas()
     except Exception as err:
         logging.critical(err, type(err))
-        comandas = {}
+        comandas = []
     finally:
         dml.destroy_me()
 
@@ -245,7 +260,7 @@ def all_produtos():
         comandas = dml.find_all_products()
     except Exception as err:
         logging.critical(err, type(err))
-        comandas = {}
+        comandas = []
     finally:
         dml.destroy_me()
 

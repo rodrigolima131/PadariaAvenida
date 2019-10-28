@@ -44,6 +44,23 @@ class DML:
         fetch = execute.fetchone()
         return {k[0]: v for k, v in list(zip(execute.description, fetch))}
 
+    def find_all_clientes(self):
+        try:
+            execute = self.conn.execute("SELECT * FROM Clientes;")
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return []
+
     ##############################################
     #                  Comandas                  #
     ##############################################
@@ -98,7 +115,7 @@ class DML:
             return list_return
         except Exception as e:
             logging.critical(e, type(e))
-            return {}
+            return []
 
     def edit_comanda(self, set_query, where):
         query = f"UPDATE Comandas SET {set_query} WHERE {where}"
@@ -157,7 +174,7 @@ class DML:
             return list_return
         except Exception as e:
             logging.critical(e, type(e))
-            return {}
+            return []
 
     def edit_produto(self, set_query, where):
         query = f"UPDATE Produtos SET {set_query} WHERE {where};"
