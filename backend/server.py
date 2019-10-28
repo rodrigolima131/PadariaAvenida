@@ -236,6 +236,37 @@ def delete_produto():
 
     return jsonify(ok=True)
 
+
+@app.route("/produtos/all")
+def all_produtos():
+    dml = DML()
+
+    try:
+        comandas = dml.find_all_products()
+    except Exception as err:
+        logging.critical(err, type(err))
+        comandas = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(comandas)
+
+
+@app.route("/produto/like", methods=["POST"])
+def like_produto():
+    produto = request.get_json(silent=True)["produto"]
+    dml = DML()
+
+    try:
+        json_ = dml.find_like_produtos(product_name=produto)
+    except Exception as err:
+        logging.critical(err, type(err))
+        json_ = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(json_)
+
 ##############################################
 #                   HEALTH                   #
 ##############################################
