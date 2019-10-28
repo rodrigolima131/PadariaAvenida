@@ -46,7 +46,7 @@ class DML:
 
     def find_all_clientes(self):
         try:
-            execute = self.conn.execute("SELECT * FROM Clientes;")
+            execute = self.conn.execute("SELECT ID, nome, telefone FROM Clientes;")
             fetch = execute.fetchall()
 
             columns = [v[0] for v in execute.description]
