@@ -267,6 +267,23 @@ def like_produto():
 
     return jsonify(json_)
 
+
+@app.route("/produto/edit", methods=["POST"])
+def edit_produto():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_produto(data["query"], data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
 ##############################################
 #                   HEALTH                   #
 ##############################################

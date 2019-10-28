@@ -158,3 +158,9 @@ class DML:
         except Exception as e:
             logging.critical(e, type(e))
             return {}
+
+    def edit_produto(self, set_query, where):
+        query = f"UPDATE Produtos SET {set_query} WHERE {where};"
+        logging.info(query)
+        self.conn.execute(query)
+        self.conn.commit()
