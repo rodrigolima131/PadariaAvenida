@@ -1,5 +1,5 @@
-from backend.database.db import Database
-from backend.database.schema import Cliente
+from database.db import Database
+from database.schema import Cliente
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
