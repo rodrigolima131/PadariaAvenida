@@ -1,5 +1,5 @@
 from database.db import Database
-from database.schema import Cliente
+from database.schema import Cliente, Produto
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -107,4 +107,60 @@ class DML:
 
     def finish_comanda(self, cliente_id: int, fim: str):
         self.conn.execute(f"UPDATE Comandas SET fim = '{fim}' WHERE cliente_id = {cliente_id} and fim IS NULL")
+        self.conn.commit()
+
+    ##############################################
+    #                 PRODUTOS                   #
+    ##############################################
+    def insert_produto(self, produto_values: Produto):
+        verify = self.conn.execute(f"SELECT * FROM Produtos WHERE produto = '{produto_values.produto}'; ")
+        if not verify.fetchone():
+            self.conn.execute(
+                "INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?);",
+                (produto_values.produto, produto_values.valor, produto_values.unidade)
+            )
+            self.conn.commit()
+
+    def delete_produto(self, produto_id: int):
+        self.conn.execute(f"DELETE FROM Produtos WHERE ID = {produto_id};")
+        self.conn.commit()
+
+    def find_all_products(self):
+        try:
+            execute = self.conn.execute("SELECT * FROM Produtos;")
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return {}
+
+    def find_like_produtos(self, product_name: str):
+        try:
+            execute = self.conn.execute(f"SELECT * FROM Produtos WHERE produto LIKE '%{product_name}%';")
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return {}
+
+    def edit_produto(self, set_query, where):
+        query = f"UPDATE Produtos SET {set_query} WHERE {where};"
+        logging.info(query)
+        self.conn.execute(query)
         self.conn.commit()

@@ -3,8 +3,9 @@
 
 from flask import Flask, request, jsonify, abort
 from controllers.dml import *
-from database.schema import Cliente, validate_document
+from database.schema import Cliente, Produto, validate_document
 from datetime import datetime, date
+from schematics.exceptions import DataError
 
 import sqlite3
 
@@ -196,6 +197,92 @@ def finish_comanda():
         dml.destroy_me()
 
     return jsonify(ok=True)
+
+##############################################
+#                 PRODUTOS                   #
+##############################################
+@app.route("/produto/add", methods=["POST"])
+def add_produto():
+    values = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        produto_values = validate_document(values, Produto)
+        dml.insert_produto(produto_values)
+    except DataError as e:
+        logging.critical("Argumentos recebidos invalidos.")
+        abort(406, description="Argumentos Passados inválidos.")
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=True), 201
+
+
+@app.route("/produto/del", methods=["POST"])
+def delete_produto():
+    produto_id = request.get_json(silent=True)["produto_id"]
+    dml = DML()
+
+    try:
+        dml.delete_produto(produto_id=produto_id)
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=True)
+
+
+@app.route("/produtos/all")
+def all_produtos():
+    dml = DML()
+
+    try:
+        comandas = dml.find_all_products()
+    except Exception as err:
+        logging.critical(err, type(err))
+        comandas = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(comandas)
+
+
+@app.route("/produto/like", methods=["POST"])
+def like_produto():
+    produto = request.get_json(silent=True)["produto"]
+    dml = DML()
+
+    try:
+        json_ = dml.find_like_produtos(product_name=produto)
+    except Exception as err:
+        logging.critical(err, type(err))
+        json_ = {}
+    finally:
+        dml.destroy_me()
+
+    return jsonify(json_)
+
+
+@app.route("/produto/edit", methods=["POST"])
+def edit_produto():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_produto(data["query"], data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
 
 ##############################################
 #                   HEALTH                   #
