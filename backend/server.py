@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, request, jsonify, abort
+from flask_cors import CORS
 from controllers.dml import *
 from database.schema import Cliente, Produto, validate_document
 from datetime import datetime, date
@@ -11,6 +12,7 @@ import sqlite3
 
 
 app = Flask(__name__)
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 
 ##############################################
