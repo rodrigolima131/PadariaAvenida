@@ -27,7 +27,7 @@
 
 </head>
 	
-<body onLoad="DateTime();">
+<body>
 	
 <div class="container-fluid">
 <div class="wrapper">
@@ -46,8 +46,8 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	                        <!-- ml-auto ajustando nav para direita-->
 		<ul class="navbar-nav ml-auto menusistema">
-		  <li class="nav-item active"><a class="nav-link active" href="#" >Funcionario xx</a><span class="sr-only">(current)</span></li>
-		  <li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
+		  <li class="nav-item active"><a class="nav-link active" href="#" ><i class="fas fa-user"></i>    Funcionario xx</a><span class="sr-only">(current)</span></li>
+		  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-power-off"></i>   Sair</a></li>
 		</ul>	
 	  </div>
 	 </div> 
@@ -67,19 +67,19 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#caixa">Caixa</a>
+    <a class="nav-link active" data-toggle="tab" href="#caixa"><i class="fas fa-cash-register"></i>  Caixa</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#comandafinalizada">Comandas finalizadas</a>
+    <a class="nav-link" data-toggle="tab" href="#comandafinalizada"><i class="fas fa-pager"></i>    Comandas finalizadas</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#estoque">Estoque</a>
+    <a class="nav-link" data-toggle="tab" href="#estoque"><i class="fas fa-cubes"></i>    Estoque</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#produto">Produtos</a>
+    <a class="nav-link" data-toggle="tab" href="#produto"><i class="fas fa-clipboard-list"></i>    Produtos</a>
   </li>
     <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#relatorio">Relatorios</a>
+    <a class="nav-link" data-toggle="tab" href="#relatorio"><i class="fas fa-chart-bar"></i>   Relatorios</a>
   </li>
 </ul>
 
@@ -87,32 +87,201 @@
  
 
 <!-- Tab panes -->
-<div class="tab-content">
+<div id="conteudo_principal" class="tab-content">
 		  <div class="row tab-pane container active" id="caixa">
 			<!--Caixa-->
 				
-					<div class="row" id="caixa_linha">
-						<div id="funcao_caixa" class="col-md-12 col-sm-12 col-xs-12">
-							<button type="button" class="btn btn-info">Suprimento</button>
-							<button type="button" class="btn btn-info" >Sangria</button>
-							<button type="button" class="btn btn-info">Fechar Caixa</button>
-						</div>
-					</div>
+					<div class="row" id="caixa_linha"></div>
+			
 					<div class="row">
-							<div id="recebimento_caixa" class="col-md-10 col-sm-10 col-xs-11" >
+							<div id="recebimento_caixa" class="col-md-10 col-sm-6 col-xs-6" >
 							<h5>Cartão de credito: R$ 150,00</h5>
 							<h5>Cartão de débito: R$ 250,00</h5>
 							<h5>Dinheiro: R$ 300,00</h5>
 							<h5>Sangria: R$ 200,00</h5><br />
 							<h3>Total em Caixa: R$500,00<h3>
 							</div>
+							
+						<div id="funcao_caixa" class="col-md-2 col-sm-6 col-xs-6">
+							<button type="button" class="btn btn-info btn-sm"><i class="fas fa-hand-holding-usd"></i>    Suprimento</button>
+							<button type="button" class="btn btn-info btn-sm ajusteb" ><i class="fas fa-minus"></i>    Sangria</button>
+							<button type="button" class="btn btn-info btn-sm"><i class="fas fa-calendar-times"></i>   Fechar Caixa</button>
+						</div>
 						
 					</div>		
 					
+							
+					
+					
 		  </div>
-		  <div class="tab-pane container fade" id="comandafinalizada">comanda finalizada</div>
-		  <div class="tab-pane container fade" id="estoque">estoque</div>
-		  <div class="tab-pane container fade" id="produto">produto</div>
+		  
+		  <!--Table comanda Finalizada-->
+		  <div class="tab-pane container fade" id="comandafinalizada">
+						  <table class="table table-hover">
+							  <thead>
+								<tr>
+								  <th scope="col">Comanda</th>
+								  <th scope="col">Inicio</th>
+								  <th scope="col">fim</th>
+								  <th scope="col">Cliente</th>
+								  <th scope="col">Total</th>
+								</tr>
+							  </thead>
+							  <tbody>
+								<tr>
+								  <th scope="row">020</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 18:00</td>
+								  <td>Rodrigo</td>
+								  <td>R$ 70,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">021</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>Guilherme</td>
+								  <td>R$ 45,75</td>
+								</tr>
+								<tr>
+								  <th scope="row">022</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>caio</td>
+								  <td>R$ 50,30</td>
+								</tr>
+								<tr>
+								  <th scope="row">022</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>Kronti</td>
+								  <td>R$ 50,30</td>
+								</tr>
+								<tr>
+								  <th scope="row">022</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>Otto</td>
+								  <td>R$ 50,30</td>
+								</tr>
+								<tr>
+								  <th scope="row">022</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>Mark</td>
+								  <td>R$ 50,30</td>
+								</tr>
+								<tr>
+								  <th scope="row">022</th>
+								  <td>28-10-2019 19:52</td>
+								  <td>28-10-2019 19:52</td>
+								  <td>Jhon</td>
+								  <td>R$ 50,30</td>
+								</tr>
+			
+							  </tbody>
+							</table>
+
+		  </div>
+		  
+		  
+		  <!--Table Estoque-->
+		  <div class="tab-pane container fade" id="estoque">
+						  <table class="table table-hover">
+							  <thead>
+								<tr>
+								  <th scope="col">Produto</th>
+								  <th scope="col">Qtde Estoque</th>
+								  <th scope="col">Medida</th>
+								</tr>
+							  </thead>
+							  <tbody>
+								<tr>
+								  <th scope="row">Coca Cola 2 LT</th>
+								  <td>100</td>
+								  <td>UN</td>
+								</tr>
+								<tr>
+								  <th scope="row">Manteiga delicia</th>
+								  <td>20</td>
+								  <td>UN</td>
+								</tr>
+								<tr>
+								  <th scope="row">Farinha de Trigo</th>
+								  <td>20</td>
+								  <td>UN</td>
+								</tr>
+								<tr>
+								  <th scope="row">Bolo chocolate</th>
+								  <td>10</td>
+								  <td>kg</td>
+								</tr>
+								<tr>
+								  <th scope="row">Bolo Morango</th>
+								  <td>5</td>
+								  <td>KG</td>
+								</tr>
+								<tr>
+								  <th scope="row">Pão de Queijo</th>
+								  <td>50</td>
+								  <td>UN</td>
+								</tr>
+								<tr>
+								  <th scope="row">Torta de Frango</th>
+								  <td>7</td>
+								  <td>KG</td>
+								</tr>
+							  </tbody>
+							</table>
+		  </div> 
+		  
+		  
+		  
+		  
+		  
+		  <!--Consulta Produto-->
+		  <div class="tab-pane container fade" id="produto">
+				 <table class="table table-hover">
+							  <thead>
+								<tr>
+								  <th scope="col">Produto</th>
+								  <th scope="col">Preço</th>
+								</tr>
+							  </thead>
+							  <tbody>
+								<tr>
+								  <th scope="row">Coca Cola 2 LT</th>
+								  <td>R$ 5,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">Manteiga delicia</th>
+								  <td>R$ 3,50</td>
+								</tr>
+								<tr>
+								  <th scope="row">Farinha de Trigo</th>
+								  <td>R$ 3,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">Bolo chocolate</th>
+								  <td>R$ 10,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">Bolo Morango</th>
+								  <td>R$ 10,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">Pão de Queijo</th>
+								  <td>R$ 1,00</td>
+								</tr>
+								<tr>
+								  <th scope="row">Torta de Frango</th>
+								  <td>R$ 7,00</td>
+								</tr>
+							  </tbody>
+							</table>
+		  
+		  </div>
+		  
+		  
 		  <div class="tab-pane container fade" id="relatorio">relatorios</div>
 </div>
 
@@ -123,12 +292,21 @@
 		  
 		     <!--Rodape-->
 			<footer id="rodape" class="row" >
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalNovaComanda">Nova comanda</button>
-			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalFechaComanda" >Fechar Comanda</button>
-			<button type="button" class="btn btn-danger">Remover Comanda</button>
+			<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalNovaComanda"><i class="fas fa-plus"></i>  Nova comanda</button>
+			<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalFechaComanda" ><i class="fas fa-clipboard-check"></i>   Fechar Comanda</button>
+			<button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i>   Remover Comanda</button>
 			</footer>
 			
-		 </div>
+</div><!-- FIM CONTEUDO CENTRAL--!>
+
+
+
+
+
+
+
+
+
 		 
 		 <!--Nova Comanda-->
 			<div class="modal fade" id="ModalNovaComanda" role="dialog">
@@ -171,7 +349,7 @@
 										  <label class="form-check-label" for="gridRadios2">Descrição</label>
 									</div>
 									<div class="form-group col-md-2">
-										<button type="button" class="btn btn-success">Adicionar</button>
+										<button type="button" class="btn btn-success"><i class="fas fa-plus"></i>    Adicionar</button>
 									</div>
 								</div>
 				
@@ -205,7 +383,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-8">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Remover item</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-trash-alt"></i>    Remover item</button>
 								</div>
 								<div class="col-md-4">
 								<h3>Total: R$ 57,90</h3>
@@ -257,7 +435,7 @@
 										  <label class="form-check-label" for="gridRadios2">Descrição</label>
 									</div>
 									<div class="form-group col-md-2">
-										<button type="button" class="btn btn-success">Adicionar</button>
+										<button type="button" class="btn btn-success"><i class="fas fa-plus"></i>    Adicionar</button>
 									</div>
 								</div>
 				
@@ -291,9 +469,9 @@
 							</div>
 							<div class="row">
 								<div class="col-md-8">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Remover item</button>
-									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModalAplicaDesconto">Desconto</button>
-									<button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-trash-alt"></i>    Remover item</button>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModalAplicaDesconto"><i class="fas fa-percent"></i>    Desconto</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-check"></i>    Finalizar</button>
 								</div>
 								<div class="col-md-4">
 								<h3>Total: R$ 57,90</h3>
@@ -303,9 +481,6 @@
 					</div>
 		  </div>
 		</div>
-		
-		
-		
 		
 		
 		<!--aplica desconto Comanda-->
@@ -324,9 +499,9 @@
 									<div class="form-group row">
 										<label for="codigo" class="col-md-2 col-form-label">Valor</label>
 										<div class="col-md-6">
-										<input type="text" class="form-control" name="valor" id="valor" placeholder="" required>
+										<input type="text" class="form-control" name="valor"  id="valor" autofocus placeholder="R$ 0,00">
 										</div>
-										<div class="col-md-4"><button type="button" class="btn btn-success">Aplicar</button></div>
+										<div class="col-md-4"><button type="button" data-dismiss="modal" class="btn btn-success">Aplicar</button></div>
 									</div>			
 							</form>
 						  </div>
@@ -343,7 +518,7 @@
 							
 							<h4>Comandas em atendimento</h4> 
 							<!--Circulo com numero de comandas-->
-							<span class="circle">16</span>
+							<span class="circle">6</span>
 							
 					 </div>
 					 
@@ -353,22 +528,22 @@
 						
 						<!-- Busca Comanda -->
           <form class="form row">
-          <input class="form-control form-control col-md-11" type="text" placeholder="pesquisar" aria-label="Search">
+          <input class="form-control form-control col-md-10 col-sm-9" type="text" placeholder="pesquisar" aria-label="Search">
 				     <!--adicionando icone via fontwesome-->
-          <a href="" class="col-md-1"> <i class="fas fa-search" aria-hidden="true"></i> </a>
+          <a href="" class="col-md-2 col-sm-3"> <i class="fas fa-search" aria-hidden="true"></i> </a>
          </form>
 						
 						</div>
 					 </div>
 					 
 					 
-					 <!--CARDS-->
+					
 					 <!--Uma div a mais para o scrollbar-->
-					 <div class=" row my-custom-scrollbar scrollbar-warning">
+					 <div class="row my-custom-scrollbar scrollbar-warning">
 
-
+						 <!--CARDS-->
 						<div class="row ">
-							<div class="col-sm-6">
+							<div class="col-md-6 col-sm-6">
 								<div class="card border-primary ml-1">
 									<div class="card-body">
 									<h6 class="card-title">Comanda 001</h6>
@@ -379,7 +554,7 @@
 								</div>
 							</div>
 							 <!--Borda primary em todos cards -->
-							<div class="col-sm-6">
+							<div class="col-md-6 col-sm-6">
 								<div class="card border-primary ml-1">
 									<div class="card-body">
 									<h6 class="card-title">Comanda 002</h6>
@@ -394,7 +569,7 @@
 						</div>
 						
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-md-6 col-sm-6">
 									<div class="card border-primary ml-1">
 										<div class="card-body">
 										<h6 class="card-title">Comanda 003</h6>
@@ -405,7 +580,7 @@
 									</div>
 								</div>
 								
-								<div class="col-sm-6">
+								<div class="col-md-6 col-sm-6">
 									<div class="card border-primary ml-1">
 										<div class="card-body">
 										<h6 class="card-title">Comanda 004</h6>
@@ -418,7 +593,7 @@
 							</div>
 							
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-md-6 col-sm-6">
 									<div class="card border-primary ml-1">
 										<div class="card-body">
 										<h6 class="card-title">Comanda 005</h6>
@@ -429,7 +604,7 @@
 									</div>
 								</div>
 								
-								<div class="col-sm-6">
+								<div class="col-md-6 col-sm-6">
 									<div class="card border-primary ml-1">
 										<div class="card-body">
 										<h6 class="card-title">Comanda 006</h6>
