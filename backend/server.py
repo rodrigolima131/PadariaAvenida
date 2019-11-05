@@ -331,7 +331,7 @@ def edit_produto():
 ##############################################
 #              PEDIDOSCOMANDAS               #
 ##############################################
-@app.route("/comanda/add_produto", methods=["POST"])
+@app.route("/pedido/add_produto", methods=["POST"])
 def insert_produto_comanda():
     data = request.get_json(silent=True)
     dml = DML()
@@ -346,7 +346,8 @@ def insert_produto_comanda():
 
     return jsonify(ok=200)
 
-@app.route("/comanda/remove_produto", methods=["POST"])
+
+@app.route("/pedido/remove_produto", methods=["POST"])
 def remove_produto_comanda():
     data = request.get_json(silent=True)
     dml = DML()
@@ -354,6 +355,22 @@ def remove_produto_comanda():
         dml.remove_pedido(data["comanda_id"], data["produto_id"])
     except Exception as err:
         dml.destroy_me()
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/pedido/edit_pedido", methods=["POST"])
+def edit_pedido():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_pedido(data["query"], data["where"])
+    except Exception as err:
         logging.critical(err, type(err))
         return jsonify(error=400), 400
     finally:

@@ -239,3 +239,8 @@ class DML:
             "DELETE FROM PedidosComanda WHERE comanda_id = {} AND produto_id = {}".format(comanda_id, produto_id)
         )
         self.conn.commit()
+
+    def edit_pedido(self, set_query, where):
+        query = f"UPDATE PedidosComanda SET {set_query} WHERE {where}"
+        self.conn.execute(query)
+        self.conn.commit()
