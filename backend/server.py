@@ -346,6 +346,21 @@ def insert_produto_comanda():
 
     return jsonify(ok=200)
 
+@app.route("/comanda/remove_produto", methods=["POST"])
+def remove_produto_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.remove_pedido(data["comanda_id"], data["produto_id"])
+    except Exception as err:
+        dml.destroy_me()
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
 
 ##############################################
 #                   HEALTH                   #

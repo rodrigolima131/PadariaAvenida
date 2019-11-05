@@ -97,7 +97,7 @@ class DML:
     def order(self, comanda_id: int):
         try:
             execute = self.conn.execute(
-                """SELECT produto, quantidade, (quantidade*valor) as total FROM PedidosComanda
+                """SELECT produto, quantidade, ROUND(quantidade*valor, 2) as total FROM PedidosComanda
                 JOIN Produtos ON PedidosComanda.produto_id = Produtos.ID
                 WHERE comanda_id = {}""".format(
                     comanda_id
@@ -231,5 +231,11 @@ class DML:
         self.conn.execute(
             "INSERT INTO PedidosComanda (comanda_id, produto_id, quantidade) VALUES (?, ?, ?)",
             (comanda_id, produto_id, quantidade)
+        )
+        self.conn.commit()
+
+    def remove_pedido(self, comanda_id: int, produto_id: int):
+        self.conn.execute(
+            "DELETE FROM PedidosComanda WHERE comanda_id = {} AND produto_id = {}".format(comanda_id, produto_id)
         )
         self.conn.commit()
