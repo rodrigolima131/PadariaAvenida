@@ -201,3 +201,12 @@ class DML:
         self.conn.execute(query)
         self.conn.commit()
 
+    ##############################################
+    #              PEDIDOSCOMANDA                #
+    ##############################################
+    def insert_pedido(self, comanda_id: int, produto_id: int, quantidade):
+        self.conn.execute(
+            "INSERT INTO PedidosComanda (comanda_id, produto_id, quantidade) VALUES (?, ?, ?)",
+            (comanda_id, produto_id, quantidade)
+        )
+        self.conn.commit()

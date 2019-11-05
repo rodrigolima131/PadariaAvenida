@@ -320,6 +320,20 @@ def edit_produto():
 ##############################################
 #              PEDIDOSCOMANDAS               #
 ##############################################
+@app.route("/comandas/add_produto", methods=["POST"])
+def insert_produto_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.insert_pedido(data["comanda_id"], data["produto_id"], data["quantidade"])
+    except Exception as err:
+        dml.destroy_me()
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
 
 
 ##############################################
