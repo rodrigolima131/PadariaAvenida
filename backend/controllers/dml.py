@@ -94,6 +94,29 @@ class DML:
             logging.critical(err, type(err))
             return None
 
+    def order(self, comanda_id: int):
+        try:
+            execute = self.conn.execute(
+                """SELECT produto, quantidade, (quantidade*valor) as total FROM PedidosComanda
+                JOIN Produtos ON PedidosComanda.produto_id = Produtos.ID
+                WHERE comanda_id = {}""".format(
+                    comanda_id
+                )
+            )
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as err:
+            logging.critical(err, type(err))
+            return None
+
     def total_comanda(self, comanda_id):
         query = f"""
             SELECT SUM(valor * quantidade) AS total_value FROM PedidosComanda
@@ -107,7 +130,7 @@ class DML:
             return fetch[0]
         except Exception as err:
             logging.critical(err, type(err))
-            return None
+            return {}
 
     def find_active_comandas(self):
         try:
