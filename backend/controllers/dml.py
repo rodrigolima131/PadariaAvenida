@@ -97,7 +97,7 @@ class DML:
     def order(self, comanda_id: int):
         try:
             execute = self.conn.execute(
-                """SELECT PedidosComanda.produto_id, produto, quantidade, ROUND(quantidade*valor, 2) as total 
+                """SELECT PedidosComanda.produto_id, produto, quantidade, Produtos.valor, ROUND(quantidade*valor, 2) as total 
                 FROM PedidosComanda
                 JOIN Produtos ON PedidosComanda.produto_id = Produtos.ID
                 WHERE comanda_id = {}""".format(
