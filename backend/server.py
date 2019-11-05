@@ -128,6 +128,22 @@ def add_comanda():
     return jsonify(ok=True), 201
 
 
+@app.route("/comandas/total", methods=["POST"])
+def total_comanda():
+    comanda_id = request.get_json(silent=True)["comanda_id"]
+    dml = DML()
+
+    try:
+        total = dml.total_comanda(comanda_id)
+        dml.destroy_me()
+        return jsonify(total=total)
+
+    except Exception as err:
+        logging.critical(err, type(err))
+        dml.destroy_me()
+        return jsonify(error=400), 400
+
+
 @app.route("/comanda/delete", methods=["POST"])
 def delete_comanda():
     cliente_id = request.get_json(silent=True)["cliente_id"]
@@ -299,6 +315,11 @@ def edit_produto():
         dml.destroy_me()
 
     return jsonify(ok=200)
+
+
+##############################################
+#              PEDIDOSCOMANDAS               #
+##############################################
 
 
 ##############################################

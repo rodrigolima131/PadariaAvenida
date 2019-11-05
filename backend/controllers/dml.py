@@ -94,6 +94,21 @@ class DML:
             logging.critical(err, type(err))
             return None
 
+    def total_comanda(self, comanda_id):
+        query = f"""
+            SELECT SUM(valor * quantidade) AS total_value FROM PedidosComanda
+            JOIN Produtos on PedidosComanda.produto_id = Produtos.ID
+            WHERE comanda_id = {comanda_id};
+        """
+        try:
+            execute = self.conn.execute(query)
+            fetch = execute.fetchone()
+
+            return fetch[0]
+        except Exception as err:
+            logging.critical(err, type(err))
+            return None
+
     def find_active_comandas(self):
         try:
             execute = self.conn.execute("""
@@ -112,6 +127,11 @@ class DML:
                 list_return.append(
                     dict(zip(columns, f))
                 )
+
+            for comanda in list_return:
+                total = self.total_comanda(comanda["ID"])
+                comanda["total"] = round(total, 2) if total else 0
+
             return list_return
         except Exception as e:
             logging.critical(e, type(e))
@@ -178,6 +198,6 @@ class DML:
 
     def edit_produto(self, set_query, where):
         query = f"UPDATE Produtos SET {set_query} WHERE {where};"
-        logging.info(query)
         self.conn.execute(query)
         self.conn.commit()
+
