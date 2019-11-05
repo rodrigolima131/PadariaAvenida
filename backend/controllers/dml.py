@@ -94,6 +94,29 @@ class DML:
             logging.critical(err, type(err))
             return None
 
+    def order(self, comanda_id: int):
+        try:
+            execute = self.conn.execute(
+                """SELECT produto, quantidade, ROUND(quantidade*valor, 2) as total FROM PedidosComanda
+                JOIN Produtos ON PedidosComanda.produto_id = Produtos.ID
+                WHERE comanda_id = {}""".format(
+                    comanda_id
+                )
+            )
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as err:
+            logging.critical(err, type(err))
+            return None
+
     def total_comanda(self, comanda_id):
         query = f"""
             SELECT SUM(valor * quantidade) AS total_value FROM PedidosComanda
@@ -107,7 +130,7 @@ class DML:
             return fetch[0]
         except Exception as err:
             logging.critical(err, type(err))
-            return None
+            return {}
 
     def find_active_comandas(self):
         try:
@@ -201,3 +224,23 @@ class DML:
         self.conn.execute(query)
         self.conn.commit()
 
+    ##############################################
+    #              PEDIDOSCOMANDA                #
+    ##############################################
+    def insert_pedido(self, comanda_id: int, produto_id: int, quantidade):
+        self.conn.execute(
+            "INSERT INTO PedidosComanda (comanda_id, produto_id, quantidade) VALUES (?, ?, ?)",
+            (comanda_id, produto_id, quantidade)
+        )
+        self.conn.commit()
+
+    def remove_pedido(self, comanda_id: int, produto_id: int):
+        self.conn.execute(
+            "DELETE FROM PedidosComanda WHERE comanda_id = {} AND produto_id = {}".format(comanda_id, produto_id)
+        )
+        self.conn.commit()
+
+    def edit_pedido(self, set_query, where):
+        query = f"UPDATE PedidosComanda SET {set_query} WHERE {where}"
+        self.conn.execute(query)
+        self.conn.commit()

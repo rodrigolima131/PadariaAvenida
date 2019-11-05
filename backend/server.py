@@ -182,6 +182,17 @@ def find_user_id_comanda():
     return jsonify(ID=_id[0] if _id else _id)
 
 
+@app.route("/comanda/order", methods=["POST"])
+def find_produtos_by_comanda_id():
+    comanda_id = request.get_json(silent=True)["comanda_id"]
+    dml = DML()
+
+    order = dml.order(comanda_id)
+    dml.destroy_me()
+
+    return jsonify(order)
+
+
 @app.route("/comandas/active")
 def active_comandas():
     dml = DML()
@@ -320,6 +331,52 @@ def edit_produto():
 ##############################################
 #              PEDIDOSCOMANDAS               #
 ##############################################
+@app.route("/pedido/add_produto", methods=["POST"])
+def insert_produto_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.insert_pedido(data["comanda_id"], data["produto_id"], data["quantidade"])
+    except Exception as err:
+        dml.destroy_me()
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/pedido/remove_produto", methods=["POST"])
+def remove_produto_comanda():
+    data = request.get_json(silent=True)
+    dml = DML()
+    try:
+        dml.remove_pedido(data["comanda_id"], data["produto_id"])
+    except Exception as err:
+        dml.destroy_me()
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/pedido/edit_pedido", methods=["POST"])
+def edit_pedido():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_pedido(data["query"], data["where"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
 
 
 ##############################################
