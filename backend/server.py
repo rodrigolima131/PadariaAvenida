@@ -48,7 +48,7 @@ def del_client():
     data = request.get_json(silent=True)
     dml = DML()
     try:
-        dml.delete_client(data["id"])
+        dml.delete_client(data["ID"])
     except Exception as err:
         logging.critical(err, type(err))
         return jsonify(error=400), 400
