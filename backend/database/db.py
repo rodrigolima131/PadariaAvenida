@@ -142,8 +142,12 @@ class Database:
 
 
 if __name__ == '__main__':
+    from controllers.dml import DML
+    from database.schema import Produto, validate_document
+
     try:
         db = Database("app.db").create_connection()
+        dml = DML(db)
         logging.info("  Adding data test...")
         user_values = [
             ('ADMIN', 'ADMIN', 'admin'),
@@ -154,14 +158,19 @@ if __name__ == '__main__':
         """, user_values)
 
         produtos_values = [
-            ('Coca-Cola 2l', 10.50, 'Unidade'),
-            ('Pão Francês', 9.40, 'Kg')
+            {
+                'produto': 'Coca-Cola 2l',
+                'valor': 10.50,
+                'unidade': 'Unidade'
+            },
+            {
+                'produto': 'Pão Francês',
+                'valor': 9.40,
+                'unidade': 'Kg'
+            }
         ]
-        db.executemany("""
-            INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?)
-        """, produtos_values)
-
-        db.execute("""INSERT INTO Estoque (produto_id, quantidade) VALUES (1, 100)""")
+        for produto in produtos_values:
+            dml.insert_produto(validate_document(produto, Produto))
 
         clientes_values = [
             ('João Foo Bar', '123.456.789-00', '(11) 4444-0000'),

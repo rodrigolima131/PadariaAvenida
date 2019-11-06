@@ -6,8 +6,11 @@ logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class DML:
-    def __init__(self):
-        self.conn = Database().create_connection()
+    def __init__(self, db=None):
+        if db:
+            self.conn = db
+        else:
+            self.conn = Database().create_connection()
         self.query_comanda_exists = """
         SELECT * FROM Comandas 
         WHERE cliente_id = {} 
@@ -180,10 +183,16 @@ class DML:
                 "INSERT INTO Produtos (produto, valor, unidade) VALUES (?, ?, ?);",
                 (produto_values.produto, produto_values.valor, produto_values.unidade)
             )
+            _id = self.conn.execute(f"SELECT ID FROM Produtos WHERE produto = '{produto_values.produto}'; ").fetchone()[0]
+            self.conn.execute(
+                "INSERT INTO Estoque (produto_id, quantidade) VALUES (?, ?);",
+                (_id, 0)
+            )
             self.conn.commit()
 
     def delete_produto(self, produto_id: int):
         self.conn.execute(f"DELETE FROM Produtos WHERE ID = {produto_id};")
+        self.conn.execute(f"DELETE FROM Estoque WHERE produto_id = {produto_id};")
         self.conn.commit()
 
     def find_all_products(self):
