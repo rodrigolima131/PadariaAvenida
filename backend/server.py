@@ -64,7 +64,7 @@ def edit_client():
     dml = DML()
 
     try:
-        dml.edit_client(data["query"], data["where"])
+        dml.edit_client(data["set"], data["where"])
     except Exception as err:
         logging.critical(err, type(err))
         return jsonify(error=400), 400
