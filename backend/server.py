@@ -380,6 +380,54 @@ def edit_pedido():
 
 
 ##############################################
+#                   ESTOQUE                  #
+##############################################
+@app.route("/estoque/edit", methods=["POST"])
+def edit_estoque():
+    data = request.get_json(silent=True)
+    dml = DML()
+
+    try:
+        dml.edit_quantity_estoque(data["produto_id"], data["quantidade"])
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(ok=200)
+
+
+@app.route("/estoque/all")
+def view_estoque():
+    dml = DML()
+    try:
+        estoque = dml.view_estoque()
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(estoque)
+
+
+@app.route("/estoque/view_product", methods=["POST"])
+def view_single_product_estoque():
+    dml = DML()
+    produto_id = request.get_json(silent=True)["produto_id"]
+    try:
+        estoque = dml.view_single_product_estoque(produto_id)
+    except Exception as err:
+        logging.critical(err, type(err))
+        return jsonify(error=400), 400
+    finally:
+        dml.destroy_me()
+
+    return jsonify(estoque)
+
+
+##############################################
 #                   HEALTH                   #
 ##############################################
 @app.route("/health")

@@ -134,7 +134,7 @@ class DML:
             return fetch[0]
         except Exception as err:
             logging.critical(err, type(err))
-            return {}
+            return None
 
     def find_active_comandas(self):
         try:
@@ -210,7 +210,7 @@ class DML:
             return list_return
         except Exception as e:
             logging.critical(e, type(e))
-            return {}
+            return []
 
     def find_like_produtos(self, product_name: str):
         try:
@@ -254,3 +254,40 @@ class DML:
         query = f"UPDATE PedidosComanda SET {set_query} WHERE {where}"
         self.conn.execute(query)
         self.conn.commit()
+
+    ##############################################
+    #                   ESTOQUE                  #
+    ##############################################
+    def edit_quantity_estoque(self, produto_id: int, new_quantity: int):
+        self.conn.execute(f"UPDATE Estoque SET quantidade = {new_quantity} WHERE produto_id = {produto_id};")
+        self.conn.commit()
+
+    def view_estoque(self):
+        try:
+            execute = self.conn.execute("""
+            SELECT Estoque.*, P.produto FROM Estoque
+            JOIN Produtos P on Estoque.produto_id = P.ID
+            """)
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return []
+
+    def view_single_product_estoque(self, product_id: int):
+        execute = self.conn.execute(f"""
+                    SELECT Estoque.*, P.produto FROM Estoque
+                    JOIN Produtos P on Estoque.produto_id = P.ID
+                    WHERE produto_id = {product_id}
+                    """)
+
+        fetch = execute.fetchone()
+        return {k[0]: v for k, v in list(zip(execute.description, fetch))}
