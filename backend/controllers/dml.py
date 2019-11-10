@@ -87,15 +87,15 @@ class DML:
     def find_active_comanda_by_client_id(self, cliente_id: int):
         try:
             execute = self.conn.execute(
-                "SELECT ID FROM Comandas WHERE cliente_id = {} AND fim IS NULL".format(
+                "SELECT * FROM Comandas WHERE cliente_id = {} AND fim IS NULL".format(
                     cliente_id
                 )
             )
             fetch = execute.fetchone()
-            return fetch
+            return {k[0]: v for k, v in list(zip(execute.description, fetch))}
         except Exception as err:
             logging.critical(err, type(err))
-            return None
+            return {}
 
     def order(self, comanda_id: int):
         try:

@@ -170,7 +170,7 @@ def find_user_id_comanda():
     dml = DML()
 
     try:
-        _id = dml.find_active_comanda_by_client_id(
+        data = dml.find_active_comanda_by_client_id(
             cliente_id=cliente_id
         )
     except Exception as err:
@@ -179,7 +179,7 @@ def find_user_id_comanda():
     finally:
         dml.destroy_me()
 
-    return jsonify(ID=_id[0] if _id else _id)
+    return jsonify(data)
 
 
 @app.route("/comanda/order", methods=["POST"])
