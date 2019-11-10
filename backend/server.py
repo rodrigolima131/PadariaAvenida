@@ -208,6 +208,21 @@ def active_comandas():
     return jsonify(comandas)
 
 
+@app.route("/comandas/finished")
+def finished_comandas():
+    dml = DML()
+
+    try:
+        comandas = dml.find_finished_comandas()
+    except Exception as err:
+        logging.critical(err, type(err))
+        comandas = []
+    finally:
+        dml.destroy_me()
+
+    return jsonify(comandas)
+
+
 @app.route("/comanda/edit", methods=["POST"])
 def edit_comanda():
     data = request.get_json(silent=True)
