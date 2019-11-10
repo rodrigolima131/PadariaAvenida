@@ -147,12 +147,13 @@ def total_comanda():
 @app.route("/comanda/delete", methods=["POST"])
 def delete_comanda():
     cliente_id = request.get_json(silent=True)["cliente_id"]
+    data = request.get_json(silent=True).get("data", None)
     dml = DML()
 
     try:
         dml.delete_comanda(
             cliente_id=cliente_id,
-            data_comanda=str(date.today()),
+            data_comanda=data if data else str(date.today()),
         )
     except Exception as err:
         logging.critical(err, type(err))
@@ -170,8 +171,7 @@ def find_user_id_comanda():
 
     try:
         _id = dml.find_active_comanda_by_client_id(
-            cliente_id=cliente_id,
-            data_comanda=str(date.today()),
+            cliente_id=cliente_id
         )
     except Exception as err:
         logging.critical(err, type(err))

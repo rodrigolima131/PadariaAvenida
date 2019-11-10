@@ -84,11 +84,11 @@ class DML:
         )
         self.conn.commit()
 
-    def find_active_comanda_by_client_id(self, cliente_id: int, data_comanda: str):
+    def find_active_comanda_by_client_id(self, cliente_id: int):
         try:
             execute = self.conn.execute(
-                "SELECT ID FROM Comandas WHERE cliente_id = {} AND fim IS NULL and data_comanda = '{}'".format(
-                    cliente_id, data_comanda
+                "SELECT ID FROM Comandas WHERE cliente_id = {} AND fim IS NULL".format(
+                    cliente_id
                 )
             )
             fetch = execute.fetchone()
