@@ -175,7 +175,7 @@ def find_user_id_comanda():
         )
     except Exception as err:
         logging.critical(err, type(err))
-        _id = None
+        data = None
     finally:
         dml.destroy_me()
 
