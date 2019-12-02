@@ -346,6 +346,22 @@ def edit_produto():
 ##############################################
 #              PEDIDOSCOMANDAS               #
 ##############################################
+@app.route("/pedido/produtos_comanda", methods=["POST"])
+def find_all_products():
+    dml = DML()
+    comanda_id = request.get_json(silent=True).get("comanda_id")
+
+    try:
+        comandas = dml.select_all_pedido(comanda_id)
+    except Exception as err:
+        logging.critical(err, type(err))
+        comandas = []
+    finally:
+        dml.destroy_me()
+
+    return jsonify(comandas)
+
+
 @app.route("/pedido/add_produto", methods=["POST"])
 def insert_produto_comanda():
     data = request.get_json(silent=True)

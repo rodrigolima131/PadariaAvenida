@@ -265,6 +265,27 @@ class DML:
     ##############################################
     #              PEDIDOSCOMANDA                #
     ##############################################
+    def select_all_pedido(self, comanda_id):
+        try:
+            execute = self.conn.execute(f"""
+                SELECT * FROM PedidosComanda 
+                JOIN Produtos P on PedidosComanda.produto_id = P.ID
+                WHERE comanda_id={comanda_id};
+            """)
+            fetch = execute.fetchall()
+
+            columns = [v[0] for v in execute.description]
+
+            list_return = []
+            for f in fetch:
+                list_return.append(
+                    dict(zip(columns, f))
+                )
+            return list_return
+        except Exception as e:
+            logging.critical(e, type(e))
+            return []
+
     def insert_pedido(self, comanda_id: int, produto_id: int, quantidade):
         self.conn.execute(
             "INSERT INTO PedidosComanda (comanda_id, produto_id, quantidade) VALUES (?, ?, ?)",
